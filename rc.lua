@@ -375,13 +375,13 @@ globalkeys = awful.util.table.join(
           local matcher = function (c)                             
              return awful.rules.match(c, {class = 'Firefox'}) 
           end                                                      
-          awful.client.run_or_raise('urxvt', matcher)
+          awful.client.run_or_raise('firefox', matcher)
     end),
     awful.key({ modkey, "Shift" }, "e", function () 
           local matcher = function (c)                             
              return awful.rules.match(c, {class = 'Emacs'}) 
           end                                                      
-          awful.client.run_or_raise('urxvt', matcher)
+          awful.client.run_or_raise('emacs', matcher)
     end),
     awful.key({ modkey, "Shift" }, "u", function () 
           local matcher = function (c)                             

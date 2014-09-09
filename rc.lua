@@ -123,6 +123,28 @@ cpuwidget:set_color({ type = "linear", from = { 0, 0 }, to = { 10,0 }, stops = {
 -- Регистрация виджета
 vicious.register(cpuwidget, vicious.widgets.cpu, "$1")
 
+batwidget = awful.widget.progressbar()
+batwidget:set_width(8)
+batwidget:set_height(10)
+batwidget:set_vertical(true)
+batwidget:set_background_color("#494B4F")
+batwidget:set_border_color(nil)
+batwidget:set_color("#AECF96")
+-- batwidget:set_gradient_colors({ "#AECF96", "#88A175", "#FF5656" })
+vicious.register(batwidget, vicious.widgets.bat, "$2", 61, "BAT0")
+
+memwidget = awful.widget.progressbar()
+-- Progressbar properties
+memwidget:set_width(8)
+memwidget:set_height(10)
+memwidget:set_vertical(true)
+memwidget:set_background_color("#494B4F")
+memwidget:set_border_color(nil)
+memwidget:set_color("#AECF96")
+-- memwidget:set_gradient_colors({ "#AECF96", "#88A175", "#FF5656" })
+-- Register widget
+vicious.register(memwidget, vicious.widgets.mem, "$1", 13)
+
 -- Keyboard layout widget
 kbdwidget = wibox.widget.textbox(" Eng ")
 kbdwidget.border_width = 1
@@ -232,7 +254,9 @@ for s = 1, screen.count() do
     -- Widgets that are aligned to the right
     local right_layout = wibox.layout.fixed.horizontal()
     right_layout:add(mpdwidget)
+    right_layout:add(memwidget)
     right_layout:add(cpuwidget)
+    right_layout:add(batwidget)
     right_layout:add(kbdwidget)
     right_layout:add(mytextclock)
     right_layout:add(mylayoutbox[s])

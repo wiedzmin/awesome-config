@@ -51,6 +51,7 @@ beautiful.init("/home/octocat/.config/awesome/themes/" .. user_themes[12] .. "/t
 terminal = "urxvt"
 editor = os.getenv("EDITOR") or "vim"
 editor_cmd = terminal .. " -e " .. editor
+browser = "firefox -new-tab"
 
 -- Default modkey.
 -- Usually, Mod4 is the key with a logo between Control and Alt.
@@ -406,7 +407,15 @@ globalkeys = awful.util.table.join(
              return awful.rules.match(c, {class = 'Vlc'}) 
           end                                                      
           awful.client.run_or_raise('vlc', matcher)
-    end)
+    end),
+
+    awful.key({ modkey, "Shift" }, "m", function () awful.util.spawn(browser .. " https://mail.google.com/mail/u/0/#inbox") end),
+    awful.key({ modkey, "Shift" }, "g", function () awful.util.spawn(browser .. " https://github.com/wiedzmin") end),
+    awful.key({ modkey, "Shift" }, "y", function () awful.util.spawn(browser .. " http://yandex.ru") end),
+    awful.key({ modkey, "Shift" }, "b", function () awful.util.spawn(browser .. " https://facebook.com/") end),
+    awful.key({ modkey, "Shift" }, "t", function () awful.util.spawn(browser .. " http://www.multitran.ru/") end),
+    awful.key({ modkey, "Shift" }, "o", function () awful.util.spawn(browser .. " " .. selection()) end)
+
 )
 
 clientkeys = awful.util.table.join(

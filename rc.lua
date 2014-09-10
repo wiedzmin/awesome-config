@@ -137,7 +137,6 @@ batwidget:set_vertical(true)
 batwidget:set_background_color("#494B4F")
 batwidget:set_border_color(nil)
 batwidget:set_color("#AECF96")
--- batwidget:set_gradient_colors({ "#AECF96", "#88A175", "#FF5656" })
 vicious.register(batwidget, vicious.widgets.bat, "$2", 61, "BAT0")
 
 memwidget = awful.widget.progressbar()
@@ -148,7 +147,6 @@ memwidget:set_vertical(true)
 memwidget:set_background_color("#494B4F")
 memwidget:set_border_color(nil)
 memwidget:set_color("#AECF96")
--- memwidget:set_gradient_colors({ "#AECF96", "#88A175", "#FF5656" })
 -- Register widget
 vicious.register(memwidget, vicious.widgets.mem, "$1", 13)
 

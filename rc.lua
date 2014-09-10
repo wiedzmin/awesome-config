@@ -182,6 +182,9 @@ vicious.register(mpdwidget, vicious.widgets.mpd,
         end
     end, 10)
 
+separator = wibox.widget.textbox()
+separator:set_text(" :: ")
+
 -- Create a wibox for each screen and add it
 mywibox = {}
 mypromptbox = {}
@@ -262,7 +265,9 @@ for s = 1, screen.count() do
     local right_layout = wibox.layout.fixed.horizontal()
     right_layout:add(mpdwidget)
     right_layout:add(memwidget)
+    right_layout:add(separator)
     right_layout:add(cpuwidget)
+    right_layout:add(separator)
     right_layout:add(batwidget)
     right_layout:add(kbdwidget)
     right_layout:add(mytextclock)

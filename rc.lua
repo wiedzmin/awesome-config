@@ -39,7 +39,16 @@ end
 
 -- {{{ Variable definitions
 -- Themes define colours, icons, font and wallpapers.
-beautiful.init("/usr/share/awesome/themes/zenburn/theme.lua")
+-- beautiful.init("/usr/share/awesome/themes/zenburn/theme.lua")
+local user_themes =
+{
+   "blue", "crown", "dk-grey",
+   "dust", "lined", "matrix",
+   "powerarrow-darker", "rbown",
+   "smoked", "steamburn", "wombat",
+   "zenburn-custom", "zenburn-red"
+}
+beautiful.init("/home/octocat/.config/awesome/themes/" .. user_themes[12] .. "/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
 terminal = "urxvt"

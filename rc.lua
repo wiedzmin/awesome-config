@@ -300,6 +300,40 @@ function show_apps_menu()
    awful.menu.menu_keys.down = { "Down", "Alt_L" }
    local cmenu = awful.menu.clients({width=245}, { keygrabber=true, coords={x=525, y=330} })
 end
+
+function run_or_raise_map()
+   local grabber = keygrabber.run(function(mod, key, event)
+         if event == "release" then return end
+         if     key == 'f' then simple_run_or_raise('Firefox', 'firefox')
+         elseif key == 'e' then simple_run_or_raise('Emacs', 'emacs')
+         elseif key == 'u' then simple_run_or_raise('URxvt', 'urxvt')
+         elseif key == 'z' then simple_run_or_raise('Zathura', 'zathura')
+         elseif key == 'l' then simple_run_or_raise('Vlc', 'vlc')
+         else end
+         keygrabber.stop(grabber)
+   end)
+end
+
+function webjumps_map(c)
+   local grabber = keygrabber.run(function(mod, key, event)
+         if event == "release" then return end
+         if     key == 'm' then
+            awful.util.spawn(browser .. " https://mail.google.com/mail/u/0/#inbox")
+         elseif key == 'g' then
+            awful.util.spawn(browser .. " https://github.com/wiedzmin")
+         elseif key == 'y' then
+            awful.util.spawn(browser .. " http://yandex.ru")
+         elseif key == 'f' then
+            awful.util.spawn(browser .. " https://facebook.com/")
+         elseif key == 't' then
+            awful.util.spawn(browser .. " http://www.multitran.ru/")
+         elseif key == 'o' then
+            awful.util.spawn(browser .. " " .. selection())
+         else end
+         simple_run_or_raise('Firefox', 'firefox')
+         keygrabber.stop(grabber)
+   end)
+end
 -- }}}
 
 -- {{{ Key bindings
@@ -322,7 +356,7 @@ globalkeys = awful.util.table.join(
             awful.client.focus.byidx(-1)
             if client.focus then client.focus:raise() end
         end),
-    awful.key({ modkey,           }, "w", function () mymainmenu:show() end),
+    -- awful.key({ modkey,           }, "w", function () mymainmenu:show() end),
 
     -- Layout manipulation
     awful.key({ modkey, "Shift"   }, "j", function () awful.client.swap.byidx(  1)    end),
@@ -355,7 +389,7 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, "Control" }, "n", awful.client.restore),
 
     -- Prompt
-    awful.key({ modkey },            "r",     function () mypromptbox[mouse.screen]:run() end),
+    -- awful.key({ modkey },            "r",     function () mypromptbox[mouse.screen]:run() end),
 
     awful.key({ modkey }, "x",
               function ()
@@ -385,37 +419,8 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, "Shift" }, "Up", function () awful.util.spawn("xrandr --output VGA1 --auto --above LVDS1") end),
     awful.key({ modkey, "Shift" }, "Down", function () awful.util.spawn("xrandr --output VGA1 --off") end),
 
-    awful.key({ modkey, "Shift" }, "f", function () simple_run_or_raise('Firefox', 'firefox') end),
-    awful.key({ modkey, "Shift" }, "e", function () simple_run_or_raise('Emacs', 'emacs') end),
-    awful.key({ modkey, "Shift" }, "u", function () simple_run_or_raise('URxvt', 'urxvt') end),
-    awful.key({ modkey, "Shift" }, "z", function () simple_run_or_raise('Zathura', 'zathura') end),
-    awful.key({ modkey, "Shift" }, "l", function () simple_run_or_raise('Vlc', 'vlc') end),
-
-    awful.key({ modkey, "Shift" }, "m", function ()
-          awful.util.spawn(browser .. " https://mail.google.com/mail/u/0/#inbox")
-          simple_run_or_raise('Firefox', 'firefox')
-    end),
-    awful.key({ modkey, "Shift" }, "g", function ()
-          awful.util.spawn(browser .. " https://github.com/wiedzmin")
-          simple_run_or_raise('Firefox', 'firefox')
-    end),
-    awful.key({ modkey, "Shift" }, "y", function ()
-          awful.util.spawn(browser .. " http://yandex.ru")
-          simple_run_or_raise('Firefox', 'firefox')
-    end),
-    awful.key({ modkey, "Shift" }, "b", function ()
-          awful.util.spawn(browser .. " https://facebook.com/")
-          simple_run_or_raise('Firefox', 'firefox')
-    end),
-    awful.key({ modkey, "Shift" }, "t", function ()
-          awful.util.spawn(browser .. " http://www.multitran.ru/")
-          simple_run_or_raise('Firefox', 'firefox')
-    end),
-    awful.key({ modkey, "Shift" }, "o", function ()
-          awful.util.spawn(browser .. " " .. selection())
-          simple_run_or_raise('Firefox', 'firefox')
-    end)
-
+    awful.key({ modkey }, "r", function () run_or_raise_map() end),
+    awful.key({ modkey }, "w", function () webjumps_map() end)
 )
 
 clientkeys = awful.util.table.join(

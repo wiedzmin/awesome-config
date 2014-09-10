@@ -120,7 +120,7 @@ mytextclock = awful.widget.textclock()
 cpuwidget = awful.widget.graph()
 cpuwidget:set_width(50)
 cpuwidget:set_background_color("#494B4F")
-cpuwidget:set_color({ type = "linear", from = { 0, 0 }, to = { 10,0 }, stops = { {0, "#FF5656"}, {0.5, "#88A175"}, 
+cpuwidget:set_color({ type = "linear", from = { 0, 0 }, to = { 10,0 }, stops = { {0, "#FF5656"}, {0.5, "#88A175"},
                     {1, "#AECF96" }}})
 vicious.register(cpuwidget, vicious.widgets.cpu, "$1")
 
@@ -146,7 +146,7 @@ kbdwidget = wibox.widget.textbox(" Eng ")
 kbdwidget.border_width = 1
 kbdwidget.border_color = beautiful.fg_normal
 kbdwidget:set_text(" Eng ")
-kbdstrings = {[0] = " Eng ", 
+kbdstrings = {[0] = " Eng ",
               [1] = " Рус "}
 dbus.request_name("session", "ru.gentoo.kbdd")
 dbus.add_match("session", "interface='ru.gentoo.kbdd',member='layoutChanged'")
@@ -160,9 +160,9 @@ dbus.connect_signal("ru.gentoo.kbdd", function(...)
 mpdwidget = wibox.widget.textbox()
 vicious.register(mpdwidget, vicious.widgets.mpd,
     function (mpdwidget, args)
-        if args["{state}"] == "Stop" then 
+        if args["{state}"] == "Stop" then
             return " - "
-        else 
+        else
             return args["{Artist}"]..' - '.. args["{Title}"]
         end
     end, 10)
@@ -378,34 +378,34 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey }, "s", function () awful.screen.focus(2) end),
 
     -- TODO maybe simplify
-    awful.key({ modkey, "Shift" }, "f", function () 
-          local matcher = function (c)                             
-             return awful.rules.match(c, {class = 'Firefox'}) 
-          end                                                      
+    awful.key({ modkey, "Shift" }, "f", function ()
+          local matcher = function (c)
+             return awful.rules.match(c, {class = 'Firefox'})
+          end
           awful.client.run_or_raise('firefox', matcher)
     end),
-    awful.key({ modkey, "Shift" }, "e", function () 
-          local matcher = function (c)                             
-             return awful.rules.match(c, {class = 'Emacs'}) 
-          end                                                      
+    awful.key({ modkey, "Shift" }, "e", function ()
+          local matcher = function (c)
+             return awful.rules.match(c, {class = 'Emacs'})
+          end
           awful.client.run_or_raise('emacs', matcher)
     end),
-    awful.key({ modkey, "Shift" }, "u", function () 
-          local matcher = function (c)                             
-             return awful.rules.match(c, {class = 'URxvt'}) 
-          end                                                      
+    awful.key({ modkey, "Shift" }, "u", function ()
+          local matcher = function (c)
+             return awful.rules.match(c, {class = 'URxvt'})
+          end
           awful.client.run_or_raise('urxvt', matcher)
     end),
-    awful.key({ modkey, "Shift" }, "z", function () 
-          local matcher = function (c)                             
-             return awful.rules.match(c, {class = 'Zathura'}) 
-          end                                                      
+    awful.key({ modkey, "Shift" }, "z", function ()
+          local matcher = function (c)
+             return awful.rules.match(c, {class = 'Zathura'})
+          end
           awful.client.run_or_raise('zathura', matcher)
     end),
-    awful.key({ modkey, "Shift" }, "l", function () 
-          local matcher = function (c)                             
-             return awful.rules.match(c, {class = 'Vlc'}) 
-          end                                                      
+    awful.key({ modkey, "Shift" }, "l", function ()
+          local matcher = function (c)
+             return awful.rules.match(c, {class = 'Vlc'})
+          end
           awful.client.run_or_raise('vlc', matcher)
     end),
 
@@ -598,6 +598,3 @@ client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_n
 -- }}}
 
 -- awful.util.spawn("xxkb &")
-
-
-

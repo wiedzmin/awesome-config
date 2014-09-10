@@ -385,9 +385,6 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, "Shift" }, "Up", function () awful.util.spawn("xrandr --output VGA1 --auto --above LVDS1") end),
     awful.key({ modkey, "Shift" }, "Down", function () awful.util.spawn("xrandr --output VGA1 --off") end),
 
-    awful.key({ modkey }, "a", function () awful.screen.focus(1) end),
-    awful.key({ modkey }, "s", function () awful.screen.focus(2) end),
-
     awful.key({ modkey, "Shift" }, "f", function () simple_run_or_raise('Firefox', 'firefox') end),
     awful.key({ modkey, "Shift" }, "e", function () simple_run_or_raise('Emacs', 'emacs') end),
     awful.key({ modkey, "Shift" }, "u", function () simple_run_or_raise('URxvt', 'urxvt') end),

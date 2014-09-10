@@ -367,7 +367,7 @@ globalkeys = awful.util.table.join(
     awful.key({}, "XF86AudioRaiseVolume", function () awful.util.spawn("amixer -c 0 set Master 10+") end),
     awful.key({}, "XF86AudioLowerVolume", function () awful.util.spawn("amixer -c 0 set Master 10-") end),
 
-    awful.key({ modkey, "Control" }, "l", function () awful.util.spawn("slimlock") end),
+    awful.key({ modkey, "Control" }, "l", function () awful.util.spawn("i3lock") end),
 
     awful.key({ modkey, "Shift" }, "Right", function () awful.util.spawn("xrandr --output VGA1 --auto --right-of LVDS1") end),
     awful.key({ modkey, "Shift" }, "Left", function () awful.util.spawn("xrandr --output VGA1 --auto --left-of LVDS1") end),

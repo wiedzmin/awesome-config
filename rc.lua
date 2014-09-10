@@ -287,12 +287,18 @@ root.buttons(awful.util.table.join(
 ))
 -- }}}
 
--- {{{ Run-or-raise
+-- {{{ Custom functions
 function simple_run_or_raise(klass, command)
    local matcher = function (c)
       return awful.rules.match(c, {class = klass})
    end
    awful.client.run_or_raise(command, matcher)
+end
+
+function show_apps_menu()
+   -- If you want to always position the menu on the same place set coordinates
+   awful.menu.menu_keys.down = { "Down", "Alt_L" }
+   local cmenu = awful.menu.clients({width=245}, { keygrabber=true, coords={x=525, y=330} })
 end
 -- }}}
 
@@ -367,11 +373,7 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, "Control" }, "v", function () awful.util.spawn("mpc stop") end),
     awful.key({ modkey, "Control" }, "b", function () awful.util.spawn("mpc next") end),
 
-    awful.key({ modkey }, "Escape", function ()
-          -- If you want to always position the menu on the same place set coordinates
-          awful.menu.menu_keys.down = { "Down", "Alt_L" }
-          local cmenu = awful.menu.clients({width=245}, { keygrabber=true, coords={x=525, y=330} })
-    end),
+    awful.key({ modkey }, "Escape", function() show_apps_menu() end),
 
     awful.key({}, "XF86AudioRaiseVolume", function () awful.util.spawn("amixer -c 0 set Master 10+") end),
     awful.key({}, "XF86AudioLowerVolume", function () awful.util.spawn("amixer -c 0 set Master 10-") end),

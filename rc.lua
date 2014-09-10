@@ -177,6 +177,13 @@ vicious.register(mpdwidget, vicious.widgets.mpd,
         end
     end, 10)
 
+
+-- TODO maybe add gmail icon
+gmailicon = wibox.widget.imagebox()
+gmailicon:set_image("/home/username/.config/awesome/gmail.png")
+gmailwidget = wibox.widget.textbox()
+vicious.register(gmailwidget, vicious.widgets.gmail, "GMail: ${count}", 260)
+
 separator = wibox.widget.textbox()
 separator:set_text(" :: ")
 
@@ -259,6 +266,9 @@ for s = 1, screen.count() do
     -- Widgets that are aligned to the right
     local right_layout = wibox.layout.fixed.horizontal()
     right_layout:add(mpdwidget)
+    right_layout:add(separator)
+    right_layout:add(gmailwidget)
+    right_layout:add(separator)
     right_layout:add(memwidget)
     right_layout:add(separator)
     right_layout:add(cpuwidget)

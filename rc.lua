@@ -287,6 +287,15 @@ root.buttons(awful.util.table.join(
 ))
 -- }}}
 
+-- {{{ Run-or-raise
+function simple_run_or_raise(klass, command)
+   local matcher = function (c)
+      return awful.rules.match(c, {class = klass})
+   end
+   awful.client.run_or_raise(command, matcher)
+end
+-- }}}
+
 -- {{{ Key bindings
 globalkeys = awful.util.table.join(
     awful.key({ modkey,           }, "Escape", awful.tag.history.restore),
@@ -377,44 +386,36 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey }, "a", function () awful.screen.focus(1) end),
     awful.key({ modkey }, "s", function () awful.screen.focus(2) end),
 
-    -- TODO maybe simplify
-    awful.key({ modkey, "Shift" }, "f", function ()
-          local matcher = function (c)
-             return awful.rules.match(c, {class = 'Firefox'})
-          end
-          awful.client.run_or_raise('firefox', matcher)
-    end),
-    awful.key({ modkey, "Shift" }, "e", function ()
-          local matcher = function (c)
-             return awful.rules.match(c, {class = 'Emacs'})
-          end
-          awful.client.run_or_raise('emacs', matcher)
-    end),
-    awful.key({ modkey, "Shift" }, "u", function ()
-          local matcher = function (c)
-             return awful.rules.match(c, {class = 'URxvt'})
-          end
-          awful.client.run_or_raise('urxvt', matcher)
-    end),
-    awful.key({ modkey, "Shift" }, "z", function ()
-          local matcher = function (c)
-             return awful.rules.match(c, {class = 'Zathura'})
-          end
-          awful.client.run_or_raise('zathura', matcher)
-    end),
-    awful.key({ modkey, "Shift" }, "l", function ()
-          local matcher = function (c)
-             return awful.rules.match(c, {class = 'Vlc'})
-          end
-          awful.client.run_or_raise('vlc', matcher)
-    end),
+    awful.key({ modkey, "Shift" }, "f", function () simple_run_or_raise('Firefox', 'firefox') end),
+    awful.key({ modkey, "Shift" }, "e", function () simple_run_or_raise('Emacs', 'emacs') end),
+    awful.key({ modkey, "Shift" }, "u", function () simple_run_or_raise('URxvt', 'urxvt') end),
+    awful.key({ modkey, "Shift" }, "z", function () simple_run_or_raise('Zathura', 'zathura') end),
+    awful.key({ modkey, "Shift" }, "l", function () simple_run_or_raise('Vlc', 'vlc') end),
 
-    awful.key({ modkey, "Shift" }, "m", function () awful.util.spawn(browser .. " https://mail.google.com/mail/u/0/#inbox") end),
-    awful.key({ modkey, "Shift" }, "g", function () awful.util.spawn(browser .. " https://github.com/wiedzmin") end),
-    awful.key({ modkey, "Shift" }, "y", function () awful.util.spawn(browser .. " http://yandex.ru") end),
-    awful.key({ modkey, "Shift" }, "b", function () awful.util.spawn(browser .. " https://facebook.com/") end),
-    awful.key({ modkey, "Shift" }, "t", function () awful.util.spawn(browser .. " http://www.multitran.ru/") end),
-    awful.key({ modkey, "Shift" }, "o", function () awful.util.spawn(browser .. " " .. selection()) end)
+    awful.key({ modkey, "Shift" }, "m", function ()
+          awful.util.spawn(browser .. " https://mail.google.com/mail/u/0/#inbox")
+          simple_run_or_raise('Firefox', 'firefox')
+    end),
+    awful.key({ modkey, "Shift" }, "g", function ()
+          awful.util.spawn(browser .. " https://github.com/wiedzmin")
+          simple_run_or_raise('Firefox', 'firefox')
+    end),
+    awful.key({ modkey, "Shift" }, "y", function ()
+          awful.util.spawn(browser .. " http://yandex.ru")
+          simple_run_or_raise('Firefox', 'firefox')
+    end),
+    awful.key({ modkey, "Shift" }, "b", function ()
+          awful.util.spawn(browser .. " https://facebook.com/")
+          simple_run_or_raise('Firefox', 'firefox')
+    end),
+    awful.key({ modkey, "Shift" }, "t", function ()
+          awful.util.spawn(browser .. " http://www.multitran.ru/")
+          simple_run_or_raise('Firefox', 'firefox')
+    end),
+    awful.key({ modkey, "Shift" }, "o", function ()
+          awful.util.spawn(browser .. " " .. selection())
+          simple_run_or_raise('Firefox', 'firefox')
+    end)
 
 )
 

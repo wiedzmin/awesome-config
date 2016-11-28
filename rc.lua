@@ -298,37 +298,50 @@ function show_apps_menu()
    local cmenu = awful.menu.clients({width=245}, { keygrabber=true, coords={x=525, y=330} })
 end
 
+apps = {
+    ["f"]={'Firefox', 'firefox'},
+    ["e"]={'Emacs', 'emacs'},
+    ["u"]={'URxvt', 'urxvt'},
+    ["z"]={'Zathura', 'zathura'},
+    ["l"]={'Vlc', 'vlc'}
+}
+
 function run_or_raise_map()
    local grabber = keygrabber.run(function(mod, key, event)
-         if event == "release" then return end
-         if     key == 'f' then simple_run_or_raise('Firefox', 'firefox')
-         elseif key == 'e' then simple_run_or_raise('Emacs', 'emacs')
-         elseif key == 'u' then simple_run_or_raise('URxvt', 'urxvt')
-         elseif key == 'z' then simple_run_or_raise('Zathura', 'zathura')
-         elseif key == 'l' then simple_run_or_raise('Vlc', 'vlc')
-         else end
-         keygrabber.stop(grabber)
+           if event == "release" then return end
+           for key_, app_data in pairs(apps) do
+               if key == key_ then
+                   simple_run_or_raise(app_data[1], app_data[2])
+                   break
+               end
+           end
+           keygrabber.stop(grabber)
    end)
 end
 
+webjumps = {
+    ["m"]='https://mail.google.com/mail/u/0/#inbox',
+    ["g"]='https://github.com/wiedzmin',
+    ["y"]='http://yandex.ru',
+    ["f"]='https://facebook.com/',
+    ["t"]='http://www.multitran.ru/'
+}
+
 function webjumps_map(c)
    local grabber = keygrabber.run(function(mod, key, event)
-         if event == "release" then return end
-         if     key == 'm' then
-            awful.util.spawn(browser .. " https://mail.google.com/mail/u/0/#inbox")
-         elseif key == 'g' then
-            awful.util.spawn(browser .. " https://github.com/wiedzmin")
-         elseif key == 'y' then
-            awful.util.spawn(browser .. " http://yandex.ru")
-         elseif key == 'f' then
-            awful.util.spawn(browser .. " https://facebook.com/")
-         elseif key == 't' then
-            awful.util.spawn(browser .. " http://www.multitran.ru/")
-         elseif key == 'o' then
-            awful.util.spawn(browser .. " " .. selection())
-         else end
-         simple_run_or_raise('Firefox', 'firefox')
-         keygrabber.stop(grabber)
+           if event == "release" then return end
+           if key == 'o' then
+               awful.util.spawn(browser .. " " .. selection())
+           else
+               for key_, url in pairs(webjumps) do
+                   if key == key_ then
+                       awful.util.spawn(browser .. " " .. url)
+                       break
+                   end
+               end
+           end
+           simple_run_or_raise('Firefox', 'firefox')
+           keygrabber.stop(grabber)
    end)
 end
 -- }}}

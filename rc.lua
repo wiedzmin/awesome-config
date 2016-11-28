@@ -1,13 +1,26 @@
+awful = require("awful")
+local config_path = awful.util.getdir("config") -- config basedir
+package.path = config_path .. "/?.lua;" .. package.path
+package.path = config_path .. "/?/init.lua;" .. package.path
+package.path = config_path .. "/modules/?.lua;" .. package.path
+package.path = config_path .. "/modules/?/init.lua;" .. package.path
+
+
 -- Standard awesome library
+wibox = require("wibox") -- Widget and layout library
+beautiful = require("beautiful") -- Theme handling library
+vicious = require("vicious")
+
 local gears = require("gears")
-local awful = require("awful")
-awful.rules = require("awful.rules")
-require("awful.autofocus")
-local wibox = require("wibox") -- Widget and layout library
-local beautiful = require("beautiful") -- Theme handling library
 local naughty = require("naughty") -- Notification library
 local menubar = require("menubar")
-local vicious = require("vicious")
+-- local selection = require("selection")
+
+awful.rules = require("awful.rules")
+require("awful.autofocus")
+
+-- include custom modules
+local widgets = require("widgets")
 
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to

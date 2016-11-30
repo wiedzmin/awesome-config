@@ -252,7 +252,7 @@ end
 apps = {
     ["f"]={'Firefox', 'firefox'},
     ["e"]={'Emacs', 'emacs'},
-    ["u"]={'URxvt', 'urxvt'},
+    ["t"]={'URxvt', 'urxvt'},
     ["z"]={'Zathura', 'zathura'},
     ["l"]={'Vlc', 'vlc'}
 }

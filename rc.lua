@@ -373,8 +373,8 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, "Shift" }, "Up", function () awful.util.spawn("xrandr --output VGA1 --auto --above LVDS1") end),
     awful.key({ modkey, "Shift" }, "Down", function () awful.util.spawn("xrandr --output VGA1 --off") end),
 
-    awful.key({ modkey }, "r", function () run_or_raise_map() end),
     awful.key({ modkey }, "w", function () webjumps_map() end)
+    awful.key({ modkey }, "2", function () run_or_raise_map() end),
 )
 
 clientkeys = awful.util.table.join(

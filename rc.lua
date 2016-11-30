@@ -434,6 +434,7 @@ globalkeys = awful.util.table.join(
 
     awful.key({}, "XF86AudioRaiseVolume", function () awful.util.spawn("amixer -c 0 set Master 10+") end),
     awful.key({}, "XF86AudioLowerVolume", function () awful.util.spawn("amixer -c 0 set Master 10-") end),
+    awful.key({}, "XF86AudioMute", function () awful.util.spawn("amixer set Master toggle >> /dev/null") end),
 
     awful.key({ modkey, "Control" }, "l", function () awful.util.spawn("i3lock") end),
 

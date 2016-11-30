@@ -259,11 +259,8 @@ apps = {
 function run_or_raise_map()
    local grabber = keygrabber.run(function(mod, key, event)
            if event == "release" then return end
-           for key_, app_data in pairs(apps) do
-               if key == key_ then
-                   simple_run_or_raise(app_data[1], app_data[2])
-                   break
-               end
+           if apps[key] then
+               simple_run_or_raise(apps[key][1], apps[key][2])
            end
            keygrabber.stop(grabber)
    end)
@@ -277,17 +274,14 @@ webjumps = {
     ["t"]='http://www.multitran.ru/'
 }
 
-function webjumps_map(c)
+function webjumps_map()
    local grabber = keygrabber.run(function(mod, key, event)
            if event == "release" then return end
            if key == 'o' then
                awful.util.spawn(browser .. " " .. selection())
            else
-               for key_, url in pairs(webjumps) do
-                   if key == key_ then
-                       awful.util.spawn(browser .. " " .. url)
-                       break
-                   end
+               if webjumps[key] then
+                   awful.util.spawn(browser .. " " .. webjumps[key])
                end
            end
            simple_run_or_raise('Firefox', 'firefox')

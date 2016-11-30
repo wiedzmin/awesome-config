@@ -3,6 +3,7 @@ local config_path = awful.util.getdir("config") -- config basedir
 package.path = config_path .. "/?.lua;" .. package.path
 package.path = config_path .. "/?/init.lua;" .. package.path
 package.path = config_path .. "/modules/?.lua;" .. package.path
+package.path = config_path .. "/modules/?/?.lua;" .. package.path
 package.path = config_path .. "/modules/?/init.lua;" .. package.path
 
 

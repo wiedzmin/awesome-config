@@ -22,6 +22,10 @@ require("awful.autofocus")
 
 -- include custom modules
 local widgets = require("widgets")
+function toggle_keyboard_layout()
+    local kbdd_dbus_prev_cmd = "qdbus ru.gentoo.KbddService /ru/gentoo/KbddService ru.gentoo.kbdd.prev_layout"
+    os.execute(kbdd_dbus_prev_cmd)
+end
 
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
@@ -373,8 +377,9 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, "Shift" }, "Up", function () awful.util.spawn("xrandr --output VGA1 --auto --above LVDS1") end),
     awful.key({ modkey, "Shift" }, "Down", function () awful.util.spawn("xrandr --output VGA1 --off") end),
 
-    awful.key({ modkey }, "w", function () webjumps_map() end)
     awful.key({ modkey }, "2", function () run_or_raise_map() end),
+    awful.key({ modkey }, "w", function () webjumps_map() end),
+    awful.key({ "Control" }, "\\", function () toggle_keyboard_layout() end)
 )
 
 clientkeys = awful.util.table.join(

@@ -260,10 +260,10 @@ apps = {
 function run_or_raise_map()
    local grabber = keygrabber.run(function(mod, key, event)
            if event == "release" then return end
+           keygrabber.stop(grabber)
            if apps[key] then
                simple_run_or_raise(apps[key][1], apps[key][2])
            end
-           keygrabber.stop(grabber)
    end)
 end
 
@@ -278,6 +278,7 @@ webjumps = {
 function webjumps_map()
    local grabber = keygrabber.run(function(mod, key, event)
            if event == "release" then return end
+           keygrabber.stop(grabber)
            if key == 'o' then
                awful.util.spawn(browser .. " " .. selection())
            else
@@ -286,7 +287,6 @@ function webjumps_map()
                end
            end
            simple_run_or_raise('Firefox', 'firefox')
-           keygrabber.stop(grabber)
    end)
 end
 -- }}}

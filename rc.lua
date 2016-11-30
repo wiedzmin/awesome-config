@@ -11,6 +11,7 @@ package.path = config_path .. "/lib/?/init.lua;" .. package.path
 wibox = require("wibox") -- Widget and layout library
 beautiful = require("beautiful") -- Theme handling library
 vicious = require("vicious")
+hints = require("hints")
 
 local gears = require("gears")
 local naughty = require("naughty") -- Notification library
@@ -50,6 +51,8 @@ do
     end)
 end
 -- }}}
+
+hints.init()
 
 local user_themes =
 {
@@ -398,7 +401,8 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey }, "2", function () run_or_raise_map() end),
     awful.key({ modkey }, "w", function () webjumps_map() end),
     awful.key({ modkey }, "/", function () websearches_map() end),
-    awful.key({ "Control" }, "\\", function () toggle_keyboard_layout() end)
+    awful.key({ "Control" }, "\\", function () toggle_keyboard_layout() end),
+    awful.key({ modkey }, "e", function () hints.focus() end)
 )
 
 clientkeys = awful.util.table.join(

@@ -289,6 +289,24 @@ function webjumps_map()
            simple_run_or_raise('Firefox', 'firefox')
    end)
 end
+
+websearches = {
+    ["g"] = 'http://www.google.com/search?num=100&q=%s',
+    ["y"] = 'http://yandex.ru/yandsearch?text=%s',
+    ["t"] = 'http://www.multitran.ru/c/M.exe?CL=1&l1=1&s=%s'
+}
+
+function websearches_map()
+   local grabber = keygrabber.run(function(mod, key, event)
+           if event == "release" then return end
+           keygrabber.stop(grabber)
+           selection_ = selection()
+           if websearches[key] and selection_ then
+               awful.util.spawn(browser .. " " .. string.format(websearches[key], selection_))
+               simple_run_or_raise('Firefox', 'firefox')
+           end
+   end)
+end
 -- }}}
 
 -- {{{ Key bindings
@@ -379,6 +397,7 @@ globalkeys = awful.util.table.join(
 
     awful.key({ modkey }, "2", function () run_or_raise_map() end),
     awful.key({ modkey }, "w", function () webjumps_map() end),
+    awful.key({ modkey }, "/", function () websearches_map() end),
     awful.key({ "Control" }, "\\", function () toggle_keyboard_layout() end)
 )
 

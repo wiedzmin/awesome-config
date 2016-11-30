@@ -30,7 +30,6 @@ if awesome.startup_errors then
                      title = "Oops, there were errors during startup!",
                      text = awesome.startup_errors })
 end
-
 -- Handle runtime errors after startup
 do
     local in_error = false
@@ -47,9 +46,6 @@ do
 end
 -- }}}
 
--- {{{ Variable definitions
--- Themes define colours, icons, font and wallpapers.
--- beautiful.init("/usr/share/awesome/themes/zenburn/theme.lua")
 local user_themes =
 {
    "blue", "crown", "dk-grey",

@@ -53,3 +53,5 @@ vicious.register(mpdwidget, vicious.widgets.mpd,
 
 separator = wibox.widget.textbox()
 separator:set_text(" :: ")
+
+systray = wibox.widget.systray()

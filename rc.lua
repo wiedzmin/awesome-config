@@ -400,6 +400,7 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey }, "/", function () websearches_map() end),
     awful.key({ "Control" }, "\\", function () os.execute(defs.kbdd_dbus_prev_cmd) end),
     awful.key({ modkey }, "e", function () hints.focus() end),
+    awful.key({ modkey, "Shift" }, "p", function () awful.util.spawn("gmrun") end),
 )
 
 clientkeys = awful.util.table.join(

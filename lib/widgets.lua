@@ -52,4 +52,4 @@ vicious.register(mpdwidget, vicious.widgets.mpd,
     end, 10)
 
 separator = wibox.widget.textbox()
-separator:set_text(" :: ")
+separator:set_text(" | ")

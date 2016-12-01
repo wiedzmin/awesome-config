@@ -23,10 +23,7 @@ require("awful.autofocus")
 
 -- include custom modules
 local widgets = require("widgets")
-function toggle_keyboard_layout()
-    local kbdd_dbus_prev_cmd = "qdbus ru.gentoo.KbddService /ru/gentoo/KbddService ru.gentoo.kbdd.prev_layout"
-    os.execute(kbdd_dbus_prev_cmd)
-end
+local defs = require("defs")
 
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
@@ -64,13 +61,9 @@ local user_themes =
 }
 beautiful.init("/home/octocat/.config/awesome/themes/" .. user_themes[12] .. "/theme.lua")
 
--- This is used later as the default terminal and editor to run.
-terminal = "urxvt"
-editor = os.getenv("EDITOR") or "vim"
-editor_cmd = terminal .. " -e " .. editor
-browser = "firefox -new-tab"
+theme.taglist_font = defs.taglist_font
 
-modkey = "Mod4"
+modkey = defs.modkey
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
 local layouts =
@@ -108,14 +101,14 @@ end
 -- {{{ Menu
 -- Create a laucher widget and a main menu
 myawesomemenu = {
-   { "manual", terminal .. " -e man awesome" },
-   { "edit config", editor_cmd .. " " .. awesome.conffile },
+   { "manual", defs.terminal .. " -e man awesome" },
+   { "edit config", defs.editor_cmd .. " " .. awesome.conffile },
    { "restart", awesome.restart },
    { "quit", awesome.quit }
 }
 
 mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesome_icon },
-                                    { "open terminal", terminal },
+                                    { "open terminal", defs.terminal },
                                     { "open browser", "firefox" },
                                     { "open Emacs", "emacs" }
                                   }
@@ -125,7 +118,7 @@ mylauncher = awful.widget.launcher({ image = beautiful.awesome_icon,
                                      menu = mymainmenu })
 
 -- Menubar configuration
-menubar.utils.terminal = terminal -- Set the terminal for applications that require it
+menubar.utils.terminal = defs.terminal -- Set the terminal for applications that require it
 -- }}}
 
 
@@ -283,10 +276,10 @@ function webjumps_map()
            if event == "release" then return end
            keygrabber.stop(grabber)
            if key == 'o' then
-               awful.util.spawn(browser .. " " .. selection())
+               awful.util.spawn(defs.browser .. " " .. selection())
            else
                if webjumps[key] then
-                   awful.util.spawn(browser .. " " .. webjumps[key])
+                   awful.util.spawn(defs.browser .. " " .. webjumps[key])
                end
            end
            simple_run_or_raise('Firefox', 'firefox')
@@ -305,7 +298,7 @@ function websearches_map()
            keygrabber.stop(grabber)
            selection_ = selection()
            if websearches[key] and selection_ then
-               awful.util.spawn(browser .. " " .. string.format(websearches[key], selection_))
+               awful.util.spawn(defs.browser .. " " .. string.format(websearches[key], selection_))
                simple_run_or_raise('Firefox', 'firefox')
            end
    end)
@@ -351,7 +344,7 @@ globalkeys = awful.util.table.join(
         end),
 
     -- Standard program
-    awful.key({ modkey,           }, "Return", function () awful.util.spawn(terminal) end),
+    awful.key({ modkey,           }, "Return", function () awful.util.spawn(defs.terminal) end),
     awful.key({ modkey, "Control" }, "r", awesome.restart),
     awful.key({ modkey, "Shift"   }, "q", awesome.quit),
 
@@ -401,8 +394,8 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey }, "2", function () run_or_raise_map() end),
     awful.key({ modkey }, "w", function () webjumps_map() end),
     awful.key({ modkey }, "/", function () websearches_map() end),
-    awful.key({ "Control" }, "\\", function () toggle_keyboard_layout() end),
-    awful.key({ modkey }, "e", function () hints.focus() end)
+    awful.key({ "Control" }, "\\", function () os.execute(defs.kbdd_dbus_prev_cmd) end),
+    awful.key({ modkey }, "e", function () hints.focus() end),
 )
 
 clientkeys = awful.util.table.join(

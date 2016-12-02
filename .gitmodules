@@ -7,3 +7,6 @@
 [submodule "lain"]
 	path = lain
 	url = https://github.com/copycat-killer/lain
+[submodule "lib/eminent"]
+	path = lib/eminent
+	url = https://github.com/guotsuan/eminent.git

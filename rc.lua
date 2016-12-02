@@ -211,6 +211,8 @@ for s = 1, screen.count() do
         right_layout:add(wibox.widget.systray())
     end
     right_layout:add(separator)
+    right_layout:add(volume_widget)
+    right_layout:add(separator)
     right_layout:add(memwidget)
     right_layout:add(separator)
     right_layout:add(cpuwidget)

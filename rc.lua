@@ -12,6 +12,7 @@ wibox = require("wibox") -- Widget and layout library
 beautiful = require("beautiful") -- Theme handling library
 vicious = require("vicious")
 hints = require("hints")
+lain = require("lain")
 
 local gears = require("gears")
 local naughty = require("naughty") -- Notification library

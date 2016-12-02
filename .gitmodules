@@ -4,3 +4,6 @@
 [submodule "lib/hints"]
 	path = lib/hints
 	url = https://github.com/wiedzmin/hints.git
+[submodule "lain"]
+	path = lain
+	url = https://github.com/copycat-killer/lain

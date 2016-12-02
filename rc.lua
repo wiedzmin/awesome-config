@@ -216,6 +216,7 @@ for s = 1, screen.count() do
     right_layout:add(cpuwidget)
     right_layout:add(separator)
     right_layout:add(batwidget)
+    right_layout:add(separator)
     right_layout:add(kbdwidget)
     right_layout:add(mytextclock)
     right_layout:add(mylayoutbox[s])

@@ -14,6 +14,7 @@ vicious = require("vicious")
 hints = require("hints")
 lain = require("lain")
 eminent = require("eminent")
+cheeky = require("cheeky")
 
 local gears = require("gears")
 local naughty = require("naughty") -- Notification library
@@ -403,6 +404,7 @@ globalkeys = awful.util.table.join(
     awful.key({ "Control" }, "\\", function () os.execute(defs.kbdd_dbus_prev_cmd) end),
     awful.key({ modkey }, "e", function () hints.focus() end),
     awful.key({ modkey, "Shift" }, "p", function () awful.util.spawn("gmrun") end),
+    awful.key({ modkey, "Shift" }, "/", function() cheeky.util.switcher() end),
 )
 
 clientkeys = awful.util.table.join(

@@ -8,15 +8,6 @@ cpuwidget:set_color({ type = "linear", from = { 0, 0 }, to = { 10,0 }, stops = {
                     {1, "#AECF96" }}})
 vicious.register(cpuwidget, vicious.widgets.cpu, "$1")
 
-batwidget = awful.widget.progressbar()
-batwidget:set_width(8)
-batwidget:set_height(10)
-batwidget:set_vertical(true)
-batwidget:set_background_color("#494B4F")
-batwidget:set_border_color(nil)
-batwidget:set_color("#AECF96")
-vicious.register(batwidget, vicious.widgets.bat, "$2", 61, "BAT0")
-
 memwidget = awful.widget.progressbar()
 memwidget:set_width(8)
 memwidget:set_height(10)
@@ -53,3 +44,6 @@ vicious.register(mpdwidget, vicious.widgets.mpd,
 
 separator = wibox.widget.textbox()
 separator:set_text(" | ")
+
+require("obvious.battery")
+batwidget = obvious.battery()

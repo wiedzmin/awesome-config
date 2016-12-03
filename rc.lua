@@ -408,6 +408,7 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey }, "e", function () hints.focus() end),
     awful.key({ modkey, "Shift" }, "p", function () awful.util.spawn("gmrun") end),
     awful.key({ modkey, "Shift" }, "/", function() cheeky.util.switcher() end),
+    awful.key({ }, "Print", function () awful.util.spawn("scrot -e 'mv $f ~/screenshots/ 2>/dev/null'") end) -- TODO: take screenshot command from stumpwm
 )
 
 clientkeys = awful.util.table.join(

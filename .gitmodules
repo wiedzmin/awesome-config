@@ -4,7 +4,7 @@
 [submodule "lib/hints"]
 	path = lib/hints
 	url = https://github.com/wiedzmin/hints.git
-[submodule "lain"]
+[submodule "lib/lain"]
 	path = lain
 	url = https://github.com/copycat-killer/lain
 [submodule "lib/eminent"]
@@ -19,3 +19,6 @@
 [submodule "lib/ezconfig"]
 	path = lib/ezconfig
 	url = https://github.com/gvalkov/awesome-ezconfig.git
+[submodule "lain"]
+	path = lib/lain
+	url = ./lib/lain/

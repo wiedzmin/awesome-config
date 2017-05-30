@@ -16,6 +16,7 @@ lain = require("lain")
 eminent = require("eminent")
 cheeky = require("cheeky")
 ezconfig = require("ezconfig")
+require("obvious.wlan")
 
 local gears = require("gears")
 local naughty = require("naughty") -- Notification library
@@ -219,6 +220,8 @@ for s = 1, screen.count() do
         right_layout:add(separator)
         right_layout:add(wibox.widget.systray())
     end
+    right_layout:add(separator)
+    right_layout:add(obvious.wlan().widget)
     right_layout:add(separator)
     right_layout:add(volume_widget)
     right_layout:add(separator)

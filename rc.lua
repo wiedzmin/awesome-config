@@ -82,7 +82,15 @@ local layouts =
     awful.layout.suit.fair.horizontal,
     awful.layout.suit.spiral,
     awful.layout.suit.spiral.dwindle,
-    awful.layout.suit.max
+    awful.layout.suit.max,
+    lain.layout.termfair,
+    lain.layout.centerfair,
+    lain.layout.cascade,
+    lain.layout.cascadetile,
+    lain.layout.centerwork,
+    lain.layout.uselessfair,
+    lain.layout.uselesspiral,
+    lain.layout.uselesstile
 }
 -- }}}
 

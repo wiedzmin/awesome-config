@@ -1,4 +1,4 @@
-awful = require("awful")
+local awful = require("awful")
 local config_path = awful.util.getdir("config") -- config basedir
 package.path = config_path .. "/?.lua;" .. package.path
 package.path = config_path .. "/?/init.lua;" .. package.path
@@ -8,14 +8,14 @@ package.path = config_path .. "/lib/?/init.lua;" .. package.path
 
 
 -- Standard awesome library
-wibox = require("wibox") -- Widget and layout library
-beautiful = require("beautiful") -- Theme handling library
-vicious = require("vicious")
-hints = require("hints")
-lain = require("lain")
-eminent = require("eminent")
-cheeky = require("cheeky")
-ezconfig = require("ezconfig")
+local wibox = require("wibox") -- Widget and layout library
+local beautiful = require("beautiful") -- Theme handling library
+local vicious = require("vicious")
+local hints = require("hints")
+local lain = require("lain")
+local eminent = require("eminent")
+local cheeky = require("cheeky")
+local ezconfig = require("ezconfig")
 require("obvious.wlan")
 
 local gears = require("gears")

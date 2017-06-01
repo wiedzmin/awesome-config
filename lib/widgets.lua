@@ -1,3 +1,7 @@
+local awful = require("awful")
+local wibox = require("wibox")
+local vicious = require("vicious")
+local beautiful = require("beautiful")
 -- {{{ Wibox
 mytextclock = awful.widget.textclock()
 

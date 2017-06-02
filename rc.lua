@@ -270,10 +270,18 @@ end
 
 apps = {
     ["f"]={'Firefox', 'firefox'},
+    ["а"]={'Firefox', 'firefox'},
     ["e"]={'Emacs', 'emacs'},
+    ["у"]={'Emacs', 'emacs'},
     ["t"]={'URxvt', 'urxvt'},
+    ["е"]={'URxvt', 'urxvt'},
     ["z"]={'Zathura', 'zathura'},
-    ["l"]={'Vlc', 'vlc'}
+    ["я"]={'Zathura', 'zathura'},
+    ["l"]={'Vlc', 'vlc'},
+    ["д"]={'Vlc', 'vlc'},
+    ["g"]={'Telegram', 'Telegram'},
+    ["п"]={'Telegram', 'Telegram'},
+    ["2"]={'Fbreader', 'fbreader'}
 }
 
 function run_or_raise_map()
@@ -288,10 +296,15 @@ end
 
 webjumps = {
     ["m"]='https://mail.google.com/mail/u/0/#inbox',
+    ["ь"]='https://mail.google.com/mail/u/0/#inbox',
     ["g"]='https://github.com/wiedzmin',
+    ["п"]='https://github.com/wiedzmin',
     ["y"]='http://yandex.ru',
+    ["н"]='http://yandex.ru',
     ["f"]='https://facebook.com/',
-    ["t"]='http://www.multitran.ru/'
+    ["а"]='https://facebook.com/',
+    ["t"]='http://www.multitran.ru/',
+    ["е"]='http://www.multitran.ru/'
 }
 
 function webjumps_map()

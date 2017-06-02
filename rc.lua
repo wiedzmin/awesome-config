@@ -341,6 +341,25 @@ function websearches_map()
 end
 -- }}}
 
+do
+    next_layout = true
+    fake_input = root.fake_input
+    function toggle_keyboard_layout()
+        -- for future Emacs windows handling, see example below
+        -- root.fake_input fails for some reason
+        -- local c = client.focus
+        -- if c.class ~= "Emacs" then end
+        if next_layout then
+            next_layout = false
+            os.execute(defs.kbdd_dbus_next_cmd)
+        else
+            next_layout = true
+            os.execute(defs.kbdd_dbus_prev_cmd)
+        end
+    end
+end
+
+
 ezconfig.modkey = "Mod4"
 ezconfig.altkey = "Mod1"
 
@@ -409,7 +428,7 @@ globalkeys = ezconfig.keytable.join({
     ['M-2'] = function () run_or_raise_map() end,
     ['M-w'] = function () webjumps_map() end,
     ['M-/'] = function () websearches_map() end,
-    ['C-\\'] = function () os.execute(defs.kbdd_dbus_prev_cmd) end,
+    ['C-\\'] = toggle_keyboard_layout,
     ['M-e'] = function () hints.focus() end,
     ['M-S-p'] = function () awful.util.spawn("gmrun") end,
     ['M-S-/'] = function() cheeky.util.switcher() end,

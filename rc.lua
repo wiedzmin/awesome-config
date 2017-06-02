@@ -10,25 +10,22 @@ package.path = config_path .. "/lib/?/init.lua;" .. package.path
 -- Standard awesome library
 local wibox = require("wibox") -- Widget and layout library
 local beautiful = require("beautiful") -- Theme handling library
-local vicious = require("vicious")
 local hints = require("hints")
 local lain = require("lain")
 local eminent = require("eminent")
 local cheeky = require("cheeky")
 local ezconfig = require("ezconfig")
-require("obvious.wlan")
 
 local gears = require("gears")
 local naughty = require("naughty") -- Notification library
 local menubar = require("menubar")
--- local selection = require("selection")
-
-awful.rules = require("awful.rules")
-require("awful.autofocus")
 
 -- include custom modules
 local widgets = require("widgets")
 local defs = require("defs")
+
+
+awful.rules = require("awful.rules")
 
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
@@ -222,7 +219,7 @@ for s = 1, screen.count() do
         right_layout:add(wibox.widget.systray())
     end
     right_layout:add(separator)
-    right_layout:add(obvious.wlan().widget)
+    right_layout:add(wlan_widget)
     right_layout:add(separator)
     right_layout:add(volume_widget)
     right_layout:add(separator)

@@ -2,6 +2,8 @@ local awful = require("awful")
 local wibox = require("wibox")
 local vicious = require("vicious")
 local beautiful = require("beautiful")
+local obvious = require("obvious")
+
 -- {{{ Wibox
 mytextclock = awful.widget.textclock()
 
@@ -80,6 +82,8 @@ function update_volume(widget)
 end
 
 update_volume(volume_widget)
+
+wlan_widget = obvious.wlan().widget
 
 mytimer = timer({ timeout = 0.2 })
 mytimer:connect_signal("timeout", function () update_volume(volume_widget) end)

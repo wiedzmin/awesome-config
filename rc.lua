@@ -68,6 +68,7 @@ beautiful.init("/home/octocat/.config/awesome/themes/" .. user_themes[12] .. "/t
 
 theme.taglist_font = defs.taglist_font
 theme.tasklist_font = defs.tasklist_font
+theme.border_width = 2
 
 modkey = defs.modkey
 
@@ -578,6 +579,6 @@ client.connect_signal("manage", function (c, startup)
     end
 end)
 
-client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
+client.connect_signal("focus", function(c) c.border_color = "#4286f4" end)
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 -- }}}

@@ -12,7 +12,6 @@ local wibox = require("wibox") -- Widget and layout library
 local beautiful = require("beautiful") -- Theme handling library
 local hints = require("hints")
 local lain = require("lain")
-local eminent = require("eminent")
 local cheeky = require("cheeky")
 local ezconfig = require("ezconfig")
 

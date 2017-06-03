@@ -11,6 +11,10 @@ defs.tasklist_font = "Consolas 12"
 defs.terminal = "urxvt"
 defs.editor = os.getenv("EDITOR") or "vim"
 defs.editor_cmd = defs.terminal .. " -e " .. defs.editor
-defs.browser = "firefox -new-tab"
+defs.browser = {
+   command = "firefox",
+   class = "Firefox",
+   params = "-new-tab"
+}
 
 return defs

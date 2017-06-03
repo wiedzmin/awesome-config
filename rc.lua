@@ -23,6 +23,11 @@ local menubar = require("menubar")
 -- include custom modules
 local widgets = require("widgets")
 local defs = require("defs")
+local themes = require("themes")
+local menus = require("menus")
+local keydefs = require("keydefs")
+local utils = require("utils")
+local layouts = require("layouts")
 
 
 awful.rules = require("awful.rules")
@@ -53,85 +58,16 @@ end
 
 hints.init()
 
-local user_themes =
-{
-   "blue", "crown", "dk-grey",
-   "dust", "lined", "matrix",
-   "powerarrow-darker", "rbown",
-   "smoked", "steamburn", "wombat",
-   "zenburn-custom", "zenburn-red"
-}
-beautiful.init("/home/octocat/.config/awesome/themes/" .. user_themes[12] .. "/theme.lua")
-
-theme.taglist_font = defs.taglist_font
-theme.tasklist_font = defs.tasklist_font
-theme.border_width = 2
-
-modkey = defs.modkey
-
--- Table of layouts to cover with awful.layout.inc, order matters.
-local layouts =
-{
-    awful.layout.suit.floating,
-    awful.layout.suit.tile,
-    awful.layout.suit.tile.left,
-    awful.layout.suit.tile.bottom,
-    awful.layout.suit.tile.top,
-    awful.layout.suit.fair,
-    awful.layout.suit.fair.horizontal,
-    awful.layout.suit.spiral,
-    awful.layout.suit.spiral.dwindle,
-    awful.layout.suit.max,
-    lain.layout.termfair,
-    lain.layout.centerfair,
-    lain.layout.cascade,
-    lain.layout.cascadetile,
-    lain.layout.centerwork,
-    lain.layout.uselessfair,
-    lain.layout.uselesspiral,
-    lain.layout.uselesstile
-}
--- }}}
-
--- {{{ Wallpaper
-if beautiful.wallpaper then
-    for s = 1, screen.count() do
-        gears.wallpaper.maximized(beautiful.wallpaper, s, true)
-    end
-end
--- }}}
 
 -- {{{ Tags
 -- Define a tag table which hold all screen tags.
 tags = {}
 for s = 1, screen.count() do
     -- Each screen has its own tag table.
-    tags[s] = awful.tag({ "ω", "λ", "⧉", "∀" }, s, layouts[2])
+    tags[s] = awful.tag({ "ω", "λ", "⧉", "∀" }, s, layouts.bundle[2])
 end
 -- }}}
 
--- {{{ Menu
--- Create a laucher widget and a main menu
-myawesomemenu = {
-   { "manual", defs.terminal .. " -e man awesome" },
-   { "edit config", defs.editor_cmd .. " " .. awesome.conffile },
-   { "restart", awesome.restart },
-   { "quit", awesome.quit }
-}
-
-mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesome_icon },
-                                    { "open terminal", defs.terminal },
-                                    { "open browser", "firefox" },
-                                    { "open Emacs", "emacs" }
-                                  }
-                        })
-
-mylauncher = awful.widget.launcher({ image = beautiful.awesome_icon,
-                                     menu = mymainmenu })
-
--- Menubar configuration
-menubar.utils.terminal = defs.terminal -- Set the terminal for applications that require it
--- }}}
 
 
 -- Create a wibox for each screen and add it
@@ -141,9 +77,9 @@ mylayoutbox = {}
 mytaglist = {}
 mytaglist.buttons = awful.util.table.join(
                     awful.button({ }, 1, awful.tag.viewonly),
-                    awful.button({ modkey }, 1, awful.client.movetotag),
+                    awful.button({ defs.modkey }, 1, awful.client.movetotag),
                     awful.button({ }, 3, awful.tag.viewtoggle),
-                    awful.button({ modkey }, 3, awful.client.toggletag),
+                    awful.button({ defs.modkey }, 3, awful.client.toggletag),
                     awful.button({ }, 4, function(t) awful.tag.viewnext(awful.tag.getscreen(t)) end),
                     awful.button({ }, 5, function(t) awful.tag.viewprev(awful.tag.getscreen(t)) end)
                     )
@@ -191,10 +127,10 @@ for s = 1, screen.count() do
     -- We need one layoutbox per screen.
     mylayoutbox[s] = awful.widget.layoutbox(s)
     mylayoutbox[s]:buttons(awful.util.table.join(
-                           awful.button({ }, 1, function () awful.layout.inc(layouts, 1) end),
-                           awful.button({ }, 3, function () awful.layout.inc(layouts, -1) end),
-                           awful.button({ }, 4, function () awful.layout.inc(layouts, 1) end),
-                           awful.button({ }, 5, function () awful.layout.inc(layouts, -1) end)))
+                           awful.button({ }, 1, function () awful.layout.inc(layouts.bundle, 1) end),
+                           awful.button({ }, 3, function () awful.layout.inc(layouts.bundle, -1) end),
+                           awful.button({ }, 4, function () awful.layout.inc(layouts.bundle, 1) end),
+                           awful.button({ }, 5, function () awful.layout.inc(layouts.bundle, -1) end)))
     -- Create a taglist widget
     mytaglist[s] = awful.widget.taglist(s, awful.widget.taglist.filter.all, mytaglist.buttons)
 
@@ -251,202 +187,29 @@ root.buttons(awful.util.table.join(
 ))
 -- }}}
 
--- {{{ Custom functions
-function simple_run_or_raise(klass, command)
-   local matcher = function (c)
-      return awful.rules.match(c, {class = klass})
-   end
-   awful.client.run_or_raise(command, matcher)
-end
-
-function show_apps_menu()
-   -- If you want to always position the menu on the same place set coordinates
-   awful.menu.menu_keys.down = { "Down", "Alt_L" }
-   local cmenu = awful.menu.clients({width=245}, { keygrabber=true, coords={x=525, y=330} })
-end
-
-apps = {
-    ["f"]={'Firefox', 'firefox'},
-    ["а"]={'Firefox', 'firefox'},
-    ["e"]={'Emacs', 'emacs'},
-    ["у"]={'Emacs', 'emacs'},
-    ["t"]={'URxvt', 'urxvt'},
-    ["е"]={'URxvt', 'urxvt'},
-    ["z"]={'Zathura', 'zathura'},
-    ["я"]={'Zathura', 'zathura'},
-    ["l"]={'Vlc', 'vlc'},
-    ["д"]={'Vlc', 'vlc'},
-    ["g"]={'Telegram', 'Telegram'},
-    ["п"]={'Telegram', 'Telegram'},
-    ["2"]={'Fbreader', 'fbreader'}
-}
-
-function run_or_raise_map()
-   local grabber = keygrabber.run(function(mod, key, event)
-           if event == "release" then return end
-           keygrabber.stop(grabber)
-           if apps[key] then
-               simple_run_or_raise(apps[key][1], apps[key][2])
-           end
-   end)
-end
-
-webjumps = {
-    ["m"]='https://mail.google.com/mail/u/0/#inbox',
-    ["ь"]='https://mail.google.com/mail/u/0/#inbox',
-    ["g"]='https://github.com/wiedzmin',
-    ["п"]='https://github.com/wiedzmin',
-    ["y"]='http://yandex.ru',
-    ["н"]='http://yandex.ru',
-    ["f"]='https://facebook.com/',
-    ["а"]='https://facebook.com/',
-    ["t"]='http://www.multitran.ru/',
-    ["е"]='http://www.multitran.ru/'
-}
-
-function webjumps_map()
-   local grabber = keygrabber.run(function(mod, key, event)
-           if event == "release" then return end
-           keygrabber.stop(grabber)
-           if key == 'o' then
-               awful.util.spawn(defs.browser .. " " .. selection())
-           else
-               if webjumps[key] then
-                   awful.util.spawn(defs.browser .. " " .. webjumps[key])
-               end
-           end
-           simple_run_or_raise('Firefox', 'firefox')
-   end)
-end
-
-websearches = {
-    ["g"] = 'http://www.google.com/search?num=100&q=%s',
-    ["y"] = 'http://yandex.ru/yandsearch?text=%s',
-    ["t"] = 'http://www.multitran.ru/c/M.exe?CL=1&l1=1&s=%s'
-}
-
-function websearches_map()
-   local grabber = keygrabber.run(function(mod, key, event)
-           if event == "release" then return end
-           keygrabber.stop(grabber)
-           selection_ = selection()
-           if websearches[key] and selection_ then
-               awful.util.spawn(defs.browser .. " " .. string.format(websearches[key], selection_))
-               simple_run_or_raise('Firefox', 'firefox')
-           end
-   end)
-end
--- }}}
-
-do
-    next_layout = true
-    fake_input = root.fake_input
-    function toggle_keyboard_layout()
-        -- for future Emacs windows handling, see example below
-        -- root.fake_input fails for some reason
-        -- local c = client.focus
-        -- if c.class ~= "Emacs" then end
-        if next_layout then
-            next_layout = false
-            os.execute(defs.kbdd_dbus_next_cmd)
-        else
-            next_layout = true
-            os.execute(defs.kbdd_dbus_prev_cmd)
-        end
-    end
-end
-
 
 ezconfig.modkey = "Mod4"
 ezconfig.altkey = "Mod1"
 
-globalkeys = ezconfig.keytable.join({
-    ['M-<Escape>'] = awful.tag.history.restore,
-    ['M-<Left>'] = function () awful.client.focus.global_bydirection('left') end,
-    ['M-<Right>'] = function () awful.client.focus.global_bydirection('right') end,
-    ['M-<Up>'] = function () awful.client.focus.global_bydirection('up') end,
-    ['M-<Down>'] = function () awful.client.focus.global_bydirection('down') end,
-    ['M-j'] = function ()
-        awful.client.focus.byidx( 1)
-        if client.focus then client.focus:raise() end
-        end,
-    ['M-k'] = function ()
-        awful.client.focus.byidx(-1)
-        if client.focus then client.focus:raise() end
-        end,
-    ['M-S-j'] = function () awful.client.swap.byidx(  1) end,
-    ['M-S-k'] = function () awful.client.swap.byidx( -1) end,
-    ['M-C-j'] = function () awful.screen.focus_relative( 1) end,
-    ['M-C-k'] = function () awful.screen.focus_relative(-1) end,
-    ['M-S-,'] = function () awful.screen.focus(1) end,
-    ['M-S-.'] = function () awful.screen.focus(2) end,
-    ['M-u'] = awful.client.urgent.jumpto,
-    ['M-<Tab>'] =
-        function ()
-            awful.client.focus.history.previous()
-            if client.focus then
-                client.focus:raise()
-            end
-        end,
-    ['M-Return'] = function () awful.util.spawn(defs.terminal) end,
-    ['M-C-r'] = awesome.restart,
-    ['M-S-q'] = awesome.quit,
-    ['M-l'] = function () awful.tag.incmwfact(0.05) end,
-    ['M-h'] = function () awful.tag.incmwfact(-0.05) end,
-    ['M-S-h'] = function () awful.tag.incnmaster(1) end,
-    ['M-S-l'] = function () awful.tag.incnmaster(-1) end,
-    ['M-C-h'] = function () awful.tag.incncol(1) end,
-    ['M-C-l'] = function () awful.tag.incncol(-1) end,
-    ['M-<Space>'] = function () awful.layout.inc(layouts, 1) end,
-    ['M-S-<Space>'] = function () awful.layout.inc(layouts, -1) end,
-    ['M-C-n'] = awful.client.restore,
-    ['M-x'] =
-              function ()
-                  awful.prompt.run({ prompt = "Run Lua code: " },
-                  mypromptbox[mouse.screen].widget,
-                  awful.util.eval, nil,
-                  awful.util.getdir("cache") .. "/history_eval")
-              end,
-    ['M-p'] = function() menubar.show() end,
-    ['M-C-z'] = function () awful.util.spawn("mpc prev") end,
-    ['M-C-x'] = function () awful.util.spawn("mpc play") end,
-    ['M-C-c'] = function () awful.util.spawn("mpc toggle") end,
-    ['M-C-v'] = function () awful.util.spawn("mpc stop") end,
-    ['M-C-b'] = function () awful.util.spawn("mpc next") end,
-    ['M-<Escape>'] = function() show_apps_menu() end,
-    ['XF86AudioRaiseVolume'] = function () awful.util.spawn("amixer -c 0 set Master 10+") end,
-    ['XF86AudioLowerVolume'] = function () awful.util.spawn("amixer -c 0 set Master 10-") end,
-    ['XF86AudioMute'] = function () awful.util.spawn("amixer set Master toggle >> /dev/null") end,
-    ['M-C-l'] = function () awful.util.spawn("i3lock -c 232729") end, -- TODO: fix "xset dpms force off"
-    ['M-S-<Right>'] = function () awful.util.spawn("xrandr --output VGA1 --auto --right-of LVDS1") end,
-    ['M-S-<Left>'] = function () awful.util.spawn("xrandr --output VGA1 --auto --left-of LVDS1") end,
-    ['M-S-<Up>'] = function () awful.util.spawn("xrandr --output VGA1 --auto --above LVDS1") end,
-    ['M-S-<Down>'] = function () awful.util.spawn("xrandr --output VGA1 --off") end,
-    ['M-2'] = function () run_or_raise_map() end,
-    ['M-w'] = function () webjumps_map() end,
-    ['M-/'] = function () websearches_map() end,
-    ['C-\\'] = toggle_keyboard_layout,
-    ['M-e'] = function () hints.focus() end,
-    ['M-S-p'] = function () awful.util.spawn("gmrun") end,
-    ['M-S-/'] = function() cheeky.util.switcher() end,
-    ['Print'] = function () awful.util.spawn("scrot -e 'mv $f ~/screenshots/ 2>/dev/null'") end -- TODO: take screenshot command from stumpwm
-})
+
+globalkeys = ezconfig.keytable.join(keydefs.global_keydefs)
+
 
 clientkeys = awful.util.table.join(
-    awful.key({ modkey,           }, "f",      function (c) c.fullscreen = not c.fullscreen  end),
-    awful.key({ modkey, "Shift"   }, "c",      function (c) c:kill()                         end),
-    awful.key({ modkey, "Control" }, "space",  awful.client.floating.toggle                     ),
-    awful.key({ modkey, "Control" }, "Return", function (c) c:swap(awful.client.getmaster()) end),
-    awful.key({ modkey,           }, ",",      function (c) awful.client.movetoscreen(c,c.screen-1) end),
-    awful.key({ modkey,           }, ".",      function (c) awful.client.movetoscreen(c,c.screen+1) end),
-    awful.key({ modkey,           }, "t",      function (c) c.ontop = not c.ontop            end),
-    awful.key({ modkey,           }, "n",
+    awful.key({ defs.modkey,           }, "f",      function (c) c.fullscreen = not c.fullscreen  end),
+    awful.key({ defs.modkey, "Shift"   }, "c",      function (c) c:kill()                         end),
+    awful.key({ defs.modkey, "Control" }, "space",  awful.client.floating.toggle                     ),
+    awful.key({ defs.modkey, "Control" }, "Return", function (c) c:swap(awful.client.getmaster()) end),
+    awful.key({ defs.modkey,           }, ",",      function (c) awful.client.movetoscreen(c,c.screen-1) end),
+    awful.key({ defs.modkey,           }, ".",      function (c) awful.client.movetoscreen(c,c.screen+1) end),
+    awful.key({ defs.modkey,           }, "t",      function (c) c.ontop = not c.ontop            end),
+    awful.key({ defs.modkey,           }, "n",
         function (c)
             -- The client currently has the input focus, so it cannot be
             -- minimized, since minimized clients can't have the focus.
             c.minimized = true
         end),
-    awful.key({ modkey,           }, "m",
+    awful.key({ defs.modkey,           }, "m",
         function (c)
             c.maximized_horizontal = not c.maximized_horizontal
             c.maximized_vertical   = not c.maximized_vertical
@@ -459,7 +222,7 @@ clientkeys = awful.util.table.join(
 for i = 1, 9 do
     globalkeys = awful.util.table.join(globalkeys,
         -- View tag only.
-        awful.key({ modkey }, "F" .. i,
+        awful.key({ defs.modkey }, "F" .. i,
                   function ()
                         local screen = mouse.screen
                         local tag = awful.tag.gettags(screen)[i]
@@ -468,7 +231,7 @@ for i = 1, 9 do
                         end
                   end),
         -- Toggle tag.
-        awful.key({ modkey, "Control" }, "F" .. i,
+        awful.key({ defs.modkey, "Control" }, "F" .. i,
                   function ()
                       local screen = mouse.screen
                       local tag = awful.tag.gettags(screen)[i]
@@ -477,7 +240,7 @@ for i = 1, 9 do
                       end
                   end),
         -- Move client to tag.
-        awful.key({ modkey, "Shift" }, "F" .. i,
+        awful.key({ defs.modkey, "Shift" }, "F" .. i,
                   function ()
                       if client.focus then
                           local tag = awful.tag.gettags(client.focus.screen)[i]
@@ -487,7 +250,7 @@ for i = 1, 9 do
                      end
                   end),
         -- Toggle tag.
-        awful.key({ modkey, "Control", "Shift" }, "#" .. i + 9,
+        awful.key({ defs.modkey, "Control", "Shift" }, "#" .. i + 9,
                   function ()
                       if client.focus then
                           local tag = awful.tag.gettags(client.focus.screen)[i]
@@ -500,8 +263,8 @@ end
 
 clientbuttons = awful.util.table.join(
     awful.button({ }, 1, function (c) client.focus = c; c:raise() end),
-    awful.button({ modkey }, 1, awful.mouse.client.move),
-    awful.button({ modkey }, 3, awful.mouse.client.resize))
+    awful.button({ defs.modkey }, 1, awful.mouse.client.move),
+    awful.button({ defs.modkey }, 3, awful.mouse.client.resize))
 
 -- Set keys
 root.keys(globalkeys)

@@ -4,7 +4,6 @@ local vicious = require("vicious")
 local beautiful = require("beautiful")
 local obvious = require("obvious")
 
--- {{{ Wibox
 mytextclock = wibox.widget.textclock()
 
 cpuwidget = awful.widget.graph()

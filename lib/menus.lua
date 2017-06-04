@@ -6,7 +6,6 @@ local menubar = require("menubar")
 
 local defs = require("defs")
 
--- {{{ Menu
 -- Create a laucher widget and a main menu
 myawesomemenu = {
    { "manual", defs.terminal .. " -e man awesome" },
@@ -27,7 +26,6 @@ mylauncher = awful.widget.launcher({ image = beautiful.awesome_icon,
 
 -- Menubar configuration
 menubar.utils.terminal = defs.terminal -- Set the terminal for applications that require it
--- }}}
 
 function menus:show_apps_menu()
    -- If you want to always position the menu on the same place set coordinates

@@ -5,7 +5,7 @@ local beautiful = require("beautiful")
 local obvious = require("obvious")
 
 -- {{{ Wibox
-mytextclock = awful.widget.textclock()
+mytextclock = wibox.widget.textclock()
 
 cpuwidget = awful.widget.graph()
 cpuwidget:set_width(50)

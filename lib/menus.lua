@@ -12,7 +12,7 @@ myawesomemenu = {
    { "manual", defs.terminal .. " -e man awesome" },
    { "edit config", defs.editor_cmd .. " " .. awesome.conffile },
    { "restart", awesome.restart },
-   { "quit", awesome.quit }
+   { "quit", function() awesome.quit() end }
 }
 
 mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesome_icon },

@@ -57,102 +57,96 @@ end
 
 hints.init()
 
-
--- {{{ Tags
--- Define a tag table which hold all screen tags.
-tags = {}
-for s = 1, screen.count() do
-    -- Each screen has its own tag table.
-    tags[s] = awful.tag({ "ω", "λ", "⧉", "∀" }, s, layouts.bundle[2])
-end
--- }}}
-
-
-
 -- Create a wibox for each screen and add it
-mywibox = {}
-mypromptbox = {}
-mylayoutbox = {}
-mytaglist = {}
-mytaglist.buttons = awful.util.table.join(
-                    awful.button({ }, 1, awful.tag.viewonly),
-                    awful.button({ defs.modkey }, 1, awful.client.movetotag),
-                    awful.button({ }, 3, awful.tag.viewtoggle),
-                    awful.button({ defs.modkey }, 3, awful.client.toggletag),
-                    awful.button({ }, 4, function(t) awful.tag.viewnext(awful.tag.getscreen(t)) end),
-                    awful.button({ }, 5, function(t) awful.tag.viewprev(awful.tag.getscreen(t)) end)
-                    )
-mytasklist = {}
-mytasklist.buttons = awful.util.table.join(
-                     awful.button({ }, 1, function (c)
-                                              if c == client.focus then
-                                                  c.minimized = true
-                                              else
-                                                  -- Without this, the following
-                                                  -- :isvisible() makes no sense
-                                                  c.minimized = false
-                                                  if not c:isvisible() then
-                                                      awful.tag.viewonly(c:tags()[1])
-                                                  end
-                                                  -- This will also un-minimize
-                                                  -- the client, if needed
-                                                  client.focus = c
-                                                  c:raise()
-                                              end
-                                          end),
-                     awful.button({ }, 3, function ()
-                                              if instance then
-                                                  instance:hide()
-                                                  instance = nil
-                                              else
-                                                  instance = awful.menu.clients({
-                                                      theme = { width = 250 }
-                                                  })
-                                              end
-                                          end),
-                     awful.button({ }, 4, function ()
-                                              awful.client.focus.byidx(1)
-                                              if client.focus then client.focus:raise() end
-                                          end),
-                     awful.button({ }, 5, function ()
-                                              awful.client.focus.byidx(-1)
-                                              if client.focus then client.focus:raise() end
-                                          end))
+local taglist_buttons = awful.util.table.join(
+    awful.button({ }, 1, function(t) t:view_only() end),
+    awful.button({ defs.modkey }, 1,
+        function(t)
+            if client.focus then
+                client.focus:move_to_tag(t)
+            end
+    end),
+    awful.button({ }, 3, awful.tag.viewtoggle),
+    awful.button({ defs.modkey }, 3,
+        function(t)
+            if client.focus then
+                client.focus.toggle_tag(t)
+            end
+    end),
+    awful.button({ }, 4, function(t) awful.tag.viewnext(t.screen) end),
+    awful.button({ }, 5, function(t) awful.tag.viewprev(t.screen) end)
+)
 
-for s = 1, screen.count() do
+local tasklist_buttons = awful.util.table.join(
+    awful.button({ }, 1, function (c)
+            if c == client.focus then
+                c.minimized = true
+            else
+                -- Without this, the following
+                -- :isvisible() makes no sense
+                c.minimized = false
+                if not c:isvisible() and c.first_tag then
+                    c.first_tag:view_only()
+                end
+                -- This will also un-minimize
+                -- the client, if needed
+                client.focus = c
+                c:raise()
+            end
+    end),
+    awful.button({ }, 3, function ()
+            if instance then
+                instance:hide()
+                instance = nil
+            else
+                instance = awful.menu.clients({
+                        theme = { width = 250 }
+                })
+            end
+    end),
+    awful.button({ }, 4, function ()
+            awful.client.focus.byidx(1)
+            if client.focus then client.focus:raise() end
+    end),
+    awful.button({ }, 5, function ()
+            awful.client.focus.byidx(-1)
+            if client.focus then client.focus:raise() end
+end))
+
+
+awful.screen.connect_for_each_screen(function(s)
+    themes:set_wallpaper(s)
+    awful.tag({ "ω", "λ", "⧉", "∀" }, s, layouts.bundle[2])
+
     -- Create a promptbox for each screen
-    mypromptbox[s] = awful.widget.prompt()
+    s.mypromptbox = awful.widget.prompt()
     -- Create an imagebox widget which will contains an icon indicating which layout we're using.
     -- We need one layoutbox per screen.
-    mylayoutbox[s] = awful.widget.layoutbox(s)
-    mylayoutbox[s]:buttons(awful.util.table.join(
-                           awful.button({ }, 1, function () awful.layout.inc(layouts.bundle, 1) end),
-                           awful.button({ }, 3, function () awful.layout.inc(layouts.bundle, -1) end),
-                           awful.button({ }, 4, function () awful.layout.inc(layouts.bundle, 1) end),
-                           awful.button({ }, 5, function () awful.layout.inc(layouts.bundle, -1) end)))
+    s.mylayoutbox = awful.widget.layoutbox(s)
+    s.mylayoutbox:buttons(awful.util.table.join(
+                              awful.button({ }, 1, function () awful.layout.inc(layouts.bundle, 1) end),
+                              awful.button({ }, 3, function () awful.layout.inc(layouts.bundle, -1) end),
+                              awful.button({ }, 4, function () awful.layout.inc(layouts.bundle, 1) end),
+                              awful.button({ }, 5, function () awful.layout.inc(layouts.bundle, -1) end)))
     -- Create a taglist widget
-    mytaglist[s] = awful.widget.taglist(s, awful.widget.taglist.filter.all, mytaglist.buttons)
+    s.mytaglist = awful.widget.taglist(s, awful.widget.taglist.filter.all, taglist_buttons)
 
     -- Create a tasklist widget
-    mytasklist[s] = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, mytasklist.buttons)
+    s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, tasklist_buttons)
 
     -- Create the wibox
-    mywibox[s] = awful.wibox({ position = "top", screen = s })
+    s.mywibox = awful.wibar({ position = "top", screen = s })
 
     -- Widgets that are aligned to the left
     local left_layout = wibox.layout.fixed.horizontal()
-    -- left_layout:add(mylauncher)
-    left_layout:add(mytaglist[s])
-    left_layout:add(mypromptbox[s])
+    left_layout:add(s.mytaglist)
+    left_layout:add(s.mypromptbox)
 
     -- Widgets that are aligned to the right
     local right_layout = wibox.layout.fixed.horizontal()
     -- right_layout:add(mpdwidget)
     -- right_layout:add(separator)
-    if s == 1 then
-        right_layout:add(separator)
-        right_layout:add(wibox.widget.systray())
-    end
+    right_layout:add(wibox.widget.systray())
     right_layout:add(separator)
     right_layout:add(wlan_widget)
     right_layout:add(separator)
@@ -166,16 +160,16 @@ for s = 1, screen.count() do
     right_layout:add(separator)
     right_layout:add(kbdwidget)
     right_layout:add(mytextclock)
-    right_layout:add(mylayoutbox[s])
+    right_layout:add(s.mylayoutbox)
 
     -- Now bring it all together (with the tasklist in the middle)
     local layout = wibox.layout.align.horizontal()
     layout:set_left(left_layout)
-    layout:set_middle(mytasklist[s])
+    layout:set_middle(s.mytasklist)
     layout:set_right(right_layout)
 
-    mywibox[s]:set_widget(layout)
-end
+    s.mywibox:set_widget(layout)
+end)
 -- }}}
 
 -- {{{ Mouse bindings
@@ -199,8 +193,8 @@ clientkeys = awful.util.table.join(
     awful.key({ defs.modkey, "Shift"   }, "c",      function (c) c:kill()                         end),
     awful.key({ defs.modkey, "Control" }, "space",  awful.client.floating.toggle                     ),
     awful.key({ defs.modkey, "Control" }, "Return", function (c) c:swap(awful.client.getmaster()) end),
-    awful.key({ defs.modkey,           }, ",",      function (c) awful.client.movetoscreen(c,c.screen-1) end),
-    awful.key({ defs.modkey,           }, ".",      function (c) awful.client.movetoscreen(c,c.screen+1) end),
+    awful.key({ defs.modkey,           }, ",",      function (c) c:move_to_screen(1) end),
+    awful.key({ defs.modkey,           }, ".",      function (c) c:move_to_screen(2) end),
     awful.key({ defs.modkey,           }, "t",      function (c) c.ontop = not c.ontop            end),
     awful.key({ defs.modkey,           }, "n",
         function (c)
@@ -222,42 +216,42 @@ for i = 1, 9 do
     globalkeys = awful.util.table.join(globalkeys,
         -- View tag only.
         awful.key({ defs.modkey }, "F" .. i,
-                  function ()
-                        local screen = mouse.screen
-                        local tag = awful.tag.gettags(screen)[i]
-                        if tag then
-                           awful.tag.viewonly(tag)
-                        end
-                  end),
-        -- Toggle tag.
+            function ()
+                local screen = awful.screen.focused()
+                local tag = screen.tags[i]
+                if tag then
+                    tag:view_only()
+                end
+        end),
+        -- Toggle tag display.
         awful.key({ defs.modkey, "Control" }, "F" .. i,
-                  function ()
-                      local screen = mouse.screen
-                      local tag = awful.tag.gettags(screen)[i]
-                      if tag then
-                         awful.tag.viewtoggle(tag)
-                      end
-                  end),
+            function ()
+                local screen = awful.screen.focused()
+                local tag = screen.tags[i]
+                if tag then
+                    awful.tag.viewtoggle(tag)
+                end
+        end),
         -- Move client to tag.
         awful.key({ defs.modkey, "Shift" }, "F" .. i,
-                  function ()
-                      if client.focus then
-                          local tag = awful.tag.gettags(client.focus.screen)[i]
-                          if tag then
-                              awful.client.movetotag(tag)
-                          end
-                     end
-                  end),
+            function ()
+                if client.focus then
+                    local tag = client.focus.screen.tags[i]
+                    if tag then
+                        client.focus:move_to_tag(tag)
+                    end
+                end
+        end),
         -- Toggle tag.
         awful.key({ defs.modkey, "Control", "Shift" }, "#" .. i + 9,
-                  function ()
-                      if client.focus then
-                          local tag = awful.tag.gettags(client.focus.screen)[i]
-                          if tag then
-                              awful.client.toggletag(tag)
-                          end
-                      end
-                  end))
+            function ()
+                if client.focus then
+                    local tag = client.focus.screen.tags[i]
+                    if tag then
+                        client.focus:toggle_tag(tag)
+                    end
+                end
+    end))
 end
 
 clientbuttons = awful.util.table.join(
@@ -279,7 +273,10 @@ awful.rules.rules = {
                      focus = awful.client.focus.filter,
                      raise = true,
                      keys = clientkeys,
-                     buttons = clientbuttons } },
+                     buttons = clientbuttons,
+                     screen = awful.screen.preferred,
+                     placement = awful.placement.no_overlap+awful.placement.no_offscreen
+    } },
     { rule = { class = "MPlayer" },
       properties = { floating = true } },
     { rule = { class = "pinentry" },
@@ -287,17 +284,17 @@ awful.rules.rules = {
     { rule = { class = "gimp" },
       properties = { floating = true } },
     { rule = { class = "Firefox" },
-      properties = { tag = tags[1][1] } },
+      properties = { screen = 1, tag = "ω" } },
     { rule = { class = "Emacs" },
-      properties = { tag = tags[1][2] } },
+      properties = { screen = 1, tag = "λ" } },
     { rule = { class = "URxvt" },
-      properties = { tag = tags[1][2] } },
+      properties = { screen = 1, tag = "λ" } },
     { rule = { class = "FBReader" },
-      properties = { tag = tags[1][3] } },
+      properties = { screen = 1, tag = "⧉" } },
     { rule = { class = "Zathura" },
-      properties = { tag = tags[1][3] } },
+      properties = { screen = 1, tag = "⧉" } },
     { rule = { class = "Vlc" },
-      properties = { tag = tags[1][4] } },
+      properties = { screen = 1, tag = "∀" } },
 }
 -- }}}
 

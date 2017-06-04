@@ -43,7 +43,7 @@ function utils:websearches_map(searches, browser)
            keygrabber.stop(grabber)
            selection_ = selection()
            if searches[key] and selection_ then
-               awful.util.spawn(browser .. " " .. string.format(searches[key], selection_))
+               awful.util.spawn(browser.command .. " " .. browser.params .. " " .. string.format(searches[key], selection_))
                simple_run_or_raise(browser.class, browser.command)
            end
    end)

@@ -82,11 +82,4 @@ function utils:focus_window_from_list(dir) -- 1/-1
    end
 end
 
-function utils:focus_window_previous()
-   awful.client.focus.history.previous()
-   if client.focus then
-      client.focus:raise()
-   end
-end
-
 return utils

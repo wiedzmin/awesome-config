@@ -61,28 +61,21 @@ controls.globalkeys = ezconfig.keytable.join({
     ['M-<Right>'] = function () awful.client.focus.global_bydirection('right') end,
     ['M-<Up>'] = function () awful.client.focus.global_bydirection('up') end,
     ['M-<Down>'] = function () awful.client.focus.global_bydirection('down') end,
-    ['M-j'] = function () utils:focus_window_from_list(1) end,
-    ['M-k'] = function () utils:focus_window_from_list(-1) end,
-    ['M-S-j'] = function () awful.client.swap.byidx(  1) end,
-    ['M-S-k'] = function () awful.client.swap.byidx( -1) end,
-    ['M-C-j'] = function () awful.screen.focus_relative( 1) end,
-    ['M-C-k'] = function () awful.screen.focus_relative(-1) end,
-    ['M-S-,'] = function () awful.screen.focus(1) end,
-    ['M-S-.'] = function () awful.screen.focus(2) end,
+    ['M-C-<Left>'] = function () awful.client.swap.global_bydirection('left') end,
+    ['M-C-<Right>'] = function () awful.client.swap.global_bydirection('right') end,
+    ['M-C-<Up>'] = function () awful.client.swap.global_bydirection('up') end,
+    ['M-C-<Down>'] = function () awful.client.swap.global_bydirection('down') end,
+    ['M-,'] = function () awful.screen.focus(1) end,
+    ['M-.'] = function () awful.screen.focus(2) end,
     ['M-u'] = awful.client.urgent.jumpto,
-    ['M-<Tab>'] = utils.focus_window_previous,
-    ['M-Return'] = function () awful.spawn(defs.terminal) end,
-    ['M-C-r'] = awesome.restart,
-    ['M-S-q'] = function() awesome.quit() end,
-    ['M-l'] = function () awful.tag.incmwfact(0.05) end,
     ['M-h'] = function () awful.tag.incmwfact(-0.05) end,
+    ['M-l'] = function () awful.tag.incmwfact(0.05) end,
     ['M-S-h'] = function () awful.tag.incnmaster(1) end,
     ['M-S-l'] = function () awful.tag.incnmaster(-1) end,
     ['M-C-h'] = function () awful.tag.incncol(1) end,
     ['M-C-l'] = function () awful.tag.incncol(-1) end,
-    ['M-<Space>'] = function () awful.layout.inc(layouts, 1) end,
-    ['M-S-<Space>'] = function () awful.layout.inc(layouts, -1) end,
-    ['M-C-n'] = awful.client.restore,
+    -- ['M-<Space>'] = function () awful.layout.inc(layouts, 1) end, -- TODO: fix signature
+    -- ['M-S-<Space>'] = function () awful.layout.inc(layouts, -1) end, -- TODO: fix signature
     ['M-x'] = function()
        awful.prompt.run {
           prompt       = "Run Lua code: ",
@@ -92,12 +85,10 @@ controls.globalkeys = ezconfig.keytable.join({
        }
     end,
     ['M-p'] = function() menubar.show() end,
-    ['M-C-z'] = function () awful.spawn("mpc prev") end,
-    ['M-C-x'] = function () awful.spawn("mpc play") end,
-    ['M-C-c'] = function () awful.spawn("mpc toggle") end,
-    ['M-C-v'] = function () awful.spawn("mpc stop") end,
-    ['M-C-b'] = function () awful.spawn("mpc next") end,
     ['M-<Escape>'] = function() menus.show_apps_menu() end,
+    ['<XF86AudioPrev>'] = function () awful.spawn("mpc prev") end,
+    ['<XF86AudioPlay>'] = function () awful.spawn("mpc toggle") end,
+    ['<XF86AudioNext>'] = function () awful.spawn("mpc next") end,
     ['<XF86AudioRaiseVolume>'] = function () awful.spawn("amixer -c 0 set Master 10+") end,
     ['<XF86AudioLowerVolume>'] = function () awful.spawn("amixer -c 0 set Master 10-") end,
     ['<XF86AudioMute>'] = function () awful.spawn("amixer set Master toggle >> /dev/null") end,
@@ -110,7 +101,9 @@ controls.globalkeys = ezconfig.keytable.join({
     ['M-e'] = function () hints.focus() end,
     ['M-S-p'] = function () awful.spawn("gmrun") end,
     ['M-S-/'] = function() cheeky.util.switcher() end,
-    ['<Print>'] = function () awful.spawn("scrot -e 'mv $f ~/screenshots/ 2>/dev/null'") end -- TODO: take screenshot command from stumpwm
+    ['<Print>'] = function () awful.spawn("scrot -e 'mv $f ~/screenshots/ 2>/dev/null'") end,
+    ['M-C-r'] = awesome.restart,
+    ['M-S-q'] = function() awesome.quit() end,
 })
 
 -- Bind all key numbers to tags.
@@ -225,20 +218,14 @@ controls.clientkeys = awful.util.table.join(
    awful.key({ defs.modkey, "Shift"   }, "c",      function (c) c:kill()                         end),
    awful.key({ defs.modkey, "Control" }, "space",  awful.client.floating.toggle                     ),
    awful.key({ defs.modkey, "Control" }, "Return", function (c) c:swap(awful.client.getmaster()) end),
-   awful.key({ defs.modkey,           }, ",",      function (c) c:move_to_screen(1) end),
-   awful.key({ defs.modkey,           }, ".",      function (c) c:move_to_screen(2) end),
+   awful.key({ defs.modkey, "Shift"   }, ",",      function (c) c:move_to_screen(1) end),
+   awful.key({ defs.modkey, "Shift"   }, ".",      function (c) c:move_to_screen(2) end),
    awful.key({ defs.modkey,           }, "t",      function (c) c.ontop = not c.ontop            end),
-   awful.key({ defs.modkey,           }, "n",
-        function (c)
-            -- The client currently has the input focus, so it cannot be
-            -- minimized, since minimized clients can't have the focus.
-            c.minimized = true
-        end),
-    awful.key({ defs.modkey,           }, "m",
-        function (c)
-            c.maximized_horizontal = not c.maximized_horizontal
-            c.maximized_vertical   = not c.maximized_vertical
-        end)
+   awful.key({ defs.modkey,           }, "m",
+       function (c)
+           c.maximized_horizontal = not c.maximized_horizontal
+           c.maximized_vertical   = not c.maximized_vertical
+   end)
 )
 
 controls.clientbuttons = awful.util.table.join(

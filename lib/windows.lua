@@ -9,6 +9,7 @@ local lain = require("lain")
 local controls = require("controls")
 local defs = require("defs")
 local themes = require("themes")
+local widgets = require("widgets")
 
 windows.layouts = {
     awful.layout.suit.floating,
@@ -39,7 +40,7 @@ awful.rules.rules = {
                      border_color = beautiful.border_normal,
                      focus = awful.client.focus.filter,
                      raise = true,
-                     keys = clientkeys,
+                     keys = controls.clientkeys,
                      buttons = controls.clientbuttons,
                      screen = awful.screen.preferred,
                      placement = awful.placement.no_overlap+awful.placement.no_offscreen

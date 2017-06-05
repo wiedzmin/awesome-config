@@ -45,6 +45,13 @@ controls.websearches = {
     ["t"] = 'http://www.multitran.ru/c/M.exe?CL=1&l1=1&s=%s'
 }
 
+controls.xrandr_choices = {
+    ['Right'] = "xrandr --output VGA1 --auto --right-of LVDS1",
+    ['Left'] = "xrandr --output VGA1 --auto --left-of LVDS1",
+    ['Up'] = "xrandr --output VGA1 --auto --above LVDS1",
+    ['Down'] = "xrandr --output VGA1 --off"
+}
+
 ezconfig.modkey = defs.modkey
 ezconfig.altkey = defs.altkey
 
@@ -95,10 +102,7 @@ controls.globalkeys = ezconfig.keytable.join({
     ['<XF86AudioLowerVolume>'] = function () awful.spawn("amixer -c 0 set Master 10-") end,
     ['<XF86AudioMute>'] = function () awful.spawn("amixer set Master toggle >> /dev/null") end,
     ['M-C-l'] = function () awful.spawn.with_shell("i3lock -c 232729 && sleep 1 && xset dpms force off") end,
-    ['M-S-<Right>'] = function () awful.spawn("xrandr --output VGA1 --auto --right-of LVDS1") end,
-    ['M-S-<Left>'] = function () awful.spawn("xrandr --output VGA1 --auto --left-of LVDS1") end,
-    ['M-S-<Up>'] = function () awful.spawn("xrandr --output VGA1 --auto --above LVDS1") end,
-    ['M-S-<Down>'] = function () awful.spawn("xrandr --output VGA1 --off") end,
+    ['M-`'] = function () utils:xrandr_map(controls.xrandr_choices) end,
     ['M-2'] = function () utils:run_or_raise_map(controls.apps) end,
     ['M-w'] = function () utils:webjumps_map(controls.webjumps, defs.browser) end,
     ['M-/'] = function () utils:websearches_map(controls.websearches, defs.browser) end,

@@ -49,6 +49,16 @@ function utils:websearches_map(searches, browser)
    end)
 end
 
+function utils:xrandr_map(choices)
+   local grabber = keygrabber.run(function(mod, key, event)
+           if event == "release" then return end
+           keygrabber.stop(grabber)
+           if choices[key] then
+              awful.spawn.with_shell(choices[key])
+           end
+   end)
+end
+
 do
     fake_input = root.fake_input
     function utils:toggle_keyboard_layout()

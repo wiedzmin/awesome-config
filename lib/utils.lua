@@ -59,6 +59,17 @@ function utils:xrandr_map(choices)
    end)
 end
 
+-- TODO: abstract away common code from keygrabber maps
+function utils:vpn_map(commands)
+   local grabber = keygrabber.run(function(mod, key, event)
+           if event == "release" then return end
+           keygrabber.stop(grabber)
+           if commands[key] then
+              awful.spawn.with_shell(commands[key])
+           end
+   end)
+end
+
 do
     fake_input = root.fake_input
     function utils:toggle_keyboard_layout()

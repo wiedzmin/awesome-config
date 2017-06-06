@@ -52,6 +52,13 @@ controls.xrandr_choices = {
     ['Down'] = "xrandr --output VGA1 --off"
 }
 
+-- TODO: make command for vpn service restarting
+controls.vpn_service_commands = {
+    ['Up'] = "sudo /etc/init.d/job-vpn start",
+    ['Down'] = "sudo /etc/init.d/job-vpn stop",
+    ['s'] = "sudo /etc/init.d/job-vpn status"
+}
+
 ezconfig.modkey = defs.modkey
 ezconfig.altkey = defs.altkey
 
@@ -94,6 +101,7 @@ controls.globalkeys = ezconfig.keytable.join({
     ['<XF86AudioMute>'] = function () awful.spawn("amixer set Master toggle >> /dev/null") end,
     ['M-C-l'] = function () awful.spawn.with_shell("i3lock -c 232729 && sleep 1 && xset dpms force off") end,
     ['M-`'] = function () utils:xrandr_map(controls.xrandr_choices) end,
+    ['M-4'] = function () utils:vpn_map(controls.vpn_service_commands) end,
     ['M-2'] = function () utils:run_or_raise_map(controls.apps) end,
     ['M-w'] = function () utils:webjumps_map(controls.webjumps, defs.browser) end,
     ['M-/'] = function () utils:websearches_map(controls.websearches, defs.browser) end,

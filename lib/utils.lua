@@ -38,15 +38,34 @@ function utils:webjumps_map(webjumps, browser)
    end)
 end
 
-function utils:websearches_map(searches, browser)
+local function _search(search_url, browser, search_data)
+   awful.util.spawn(browser.command .. " " .. browser.params .. " " .. string.format(search_url, string.gsub(search_data, " ", "+")))
+   simple_run_or_raise(browser.class, browser.command)
+end
+
+function utils:websearches_map(searches, browser, type)
    local grabber = keygrabber.run(function(mod, key, event)
-           if event == "release" then return end
-           keygrabber.stop(grabber)
-           selection_ = selection()
-           if searches[key] and selection_ then
-               awful.util.spawn(browser.command .. " " .. browser.params .. " " .. string.format(searches[key], string.gsub(selection_, " ", "+")))
-               simple_run_or_raise(browser.class, browser.command)
-           end
+         if event == "release" then return end
+         keygrabber.stop(grabber)
+         if searches[key] then
+            if type == "selection" then
+               search_data = selection()
+               if search_data then
+                  _search(searches[key], browser, search_data)
+               end
+            else
+               awful.prompt.run {
+                  prompt       = "Search for: ", -- TODO: make titled searches
+                  textbox      = awful.screen.focused().mypromptbox.widget,
+                  exe_callback = function(data)
+                     if data then
+                        _search(searches[key], browser, data)
+                     end
+                  end,
+                  history_path = awful.util.get_cache_dir() .. "/history_searches"
+               }
+            end
+         end
    end)
 end
 

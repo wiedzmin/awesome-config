@@ -2,6 +2,7 @@ local themes = {}
 
 local beautiful = require("beautiful") -- Theme handling library
 local gears = require("gears") -- Theme handling library
+local naughty = require("naughty")
 
 local defs = require("defs") -- Theme handling library
 
@@ -18,6 +19,8 @@ beautiful.init("/home/octocat/.config/awesome/themes/" .. user_themes[12] .. "/t
 theme.taglist_font = defs.taglist_font
 theme.tasklist_font = defs.tasklist_font
 theme.border_width = 2
+
+naughty.config.defaults.font = defs.notifications_font
 
 function themes:set_wallpaper(s)
     -- Wallpaper

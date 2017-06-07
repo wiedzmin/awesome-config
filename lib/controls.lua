@@ -49,7 +49,8 @@ controls.xrandr_choices = {
     ['Right'] = "xrandr --output VGA1 --auto --right-of LVDS1",
     ['Left'] = "xrandr --output VGA1 --auto --left-of LVDS1",
     ['Up'] = "xrandr --output VGA1 --auto --above LVDS1",
-    ['Down'] = "xrandr --output VGA1 --off"
+    ['Down'] = "xrandr --output VGA1 --off",
+    ['u'] = function() utils.update_emacs_frames() end
 }
 
 -- TODO: make command for vpn service restarting

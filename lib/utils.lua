@@ -1,6 +1,7 @@
 local utils = {}
 
 local awful = require("awful")
+local screen = require("screen")
 
 local defs = require("defs")
 
@@ -53,8 +54,13 @@ function utils:xrandr_map(choices)
    local grabber = keygrabber.run(function(mod, key, event)
            if event == "release" then return end
            keygrabber.stop(grabber)
-           if choices[key] then
-              awful.spawn.with_shell(choices[key])
+           choice = choices[key]
+           if choice then
+              if type(choice) == "function" then
+                    choice()
+              else
+                 awful.spawn.with_shell(choice)
+              end
            end
    end)
 end
@@ -91,6 +97,15 @@ function utils:focus_window_from_list(dir) -- 1/-1
    if client.focus then
       client.focus:raise()
    end
+end
+
+-- TODO: normalize forms value, e.g. use some ,@ analog
+function utils:with_emacs_noninteractive(forms)
+   awful.spawn.with_shell("emacsclient --eval '" .. forms .. "'")
+end
+
+function utils.update_emacs_frames()
+   utils:with_emacs_noninteractive("(custom/update-frames " .. screen:count() .. ")")
 end
 
 return utils

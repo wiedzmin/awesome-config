@@ -14,6 +14,7 @@ local gears = require("gears")
 local naughty = require("naughty") -- Notification library
 
 local hints = require("hints")
+require("awful.autofocus")
 
 -- include custom modules
 local controls = require("controls")

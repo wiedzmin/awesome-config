@@ -60,15 +60,15 @@ awful.rules.rules = {
          client.focus.move_to_tag(t)
     end },
     { rule = { class = "Emacs" },
-      properties = { screen = 1, tag = "λ" } },
+      properties = { tag = "λ" } },
     { rule = { class = "URxvt" },
-      properties = { screen = 1, tag = "λ" } },
+      properties = { tag = "λ" } },
     { rule = { class = "FBReader" },
-      properties = { screen = 1, tag = "⧉" } },
+      properties = { tag = "⧉" } },
     { rule = { class = "Zathura" },
-      properties = { screen = 1, tag = "⧉" } },
+      properties = { tag = "⧉" } },
     { rule = { class = "Vlc" },
-      properties = { screen = 1, tag = "∀" } },
+      properties = { tag = "∀" } },
 }
 
 -- Signal function to execute when a new client appears.

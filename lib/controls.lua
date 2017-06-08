@@ -36,7 +36,9 @@ controls.webjumps = {
     ["f"]='https://facebook.com/',
     ["а"]='https://facebook.com/',
     ["t"]='http://www.multitran.ru/',
-    ["е"]='http://www.multitran.ru/'
+    ["е"]='http://www.multitran.ru/',
+    ["b"]='https://www.youtube.com/',
+    ["и"]='https://www.youtube.com/'
 }
 
 controls.websearches = {

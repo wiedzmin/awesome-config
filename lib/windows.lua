@@ -51,8 +51,14 @@ awful.rules.rules = {
       properties = { floating = true } },
     { rule = { class = "gimp" },
       properties = { floating = true } },
-    { rule = { class = "Firefox" },
-      properties = { screen = 1, tag = "ω" } },
+    { rule = { class = "Firefox", instance = "Navigator" },
+      properties = { tag = "ω", floating = false } },
+    { rule = { class = "Firefox", instance = "Dialog" },
+      properties = { floating = true },
+      callback = function(t)
+         client.focus.move_to_screen(client.focus.screen)
+         client.focus.move_to_tag(t)
+    end },
     { rule = { class = "Emacs" },
       properties = { screen = 1, tag = "λ" } },
     { rule = { class = "URxvt" },

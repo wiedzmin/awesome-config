@@ -43,6 +43,19 @@ local function _search(search_url, browser, search_data)
    simple_run_or_raise(browser.class, browser.command)
 end
 
+local function _search_prompt(search_url, browser, search_data)
+   awful.prompt.run {
+      prompt       = "Search for: ", -- TODO: make titled searches
+      textbox      = awful.screen.focused().mypromptbox.widget,
+      exe_callback = function(data)
+         if data then
+            _search(search_url, browser, data)
+         end
+      end,
+      history_path = awful.util.get_cache_dir() .. "/history_searches"
+   }
+end
+
 function utils:websearches_map(searches, browser, type)
    local grabber = keygrabber.run(function(mod, key, event)
          if event == "release" then return end
@@ -54,16 +67,7 @@ function utils:websearches_map(searches, browser, type)
                   _search(searches[key], browser, search_data)
                end
             else
-               awful.prompt.run {
-                  prompt       = "Search for: ", -- TODO: make titled searches
-                  textbox      = awful.screen.focused().mypromptbox.widget,
-                  exe_callback = function(data)
-                     if data then
-                        _search(searches[key], browser, data)
-                     end
-                  end,
-                  history_path = awful.util.get_cache_dir() .. "/history_searches"
-               }
+               _search_prompt(searches[key], browser, search_data)
             end
          end
    end)

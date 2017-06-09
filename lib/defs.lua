@@ -8,6 +8,8 @@ defs.kbdd_dbus_next_cmd = "qdbus ru.gentoo.KbddService /ru/gentoo/KbddService ru
 
 -- defs.taglist_font = "Consolas 14"
 -- defs.tasklist_font = "Consolas 12"
+defs.default_font = "mononoki 10"
+
 defs.taglist_font = "mononoki 14"
 defs.tasklist_font = "mononoki 12"
 defs.notifications_font = "mononoki 12"

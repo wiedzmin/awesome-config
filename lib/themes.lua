@@ -16,6 +16,8 @@ local user_themes =
 }
 beautiful.init("/home/octocat/.config/awesome/themes/" .. user_themes[12] .. "/theme.lua")
 
+theme.font = defs.default_font
+
 theme.taglist_font = defs.taglist_font
 theme.tasklist_font = defs.tasklist_font
 theme.border_width = 2

@@ -77,8 +77,8 @@ controls.globalkeys = ezconfig.keytable.join({
     ['M-C-<Right>'] = function () awful.client.swap.global_bydirection('right') end,
     ['M-C-<Up>'] = function () awful.client.swap.global_bydirection('up') end,
     ['M-C-<Down>'] = function () awful.client.swap.global_bydirection('down') end,
-    ['M-,'] = function () awful.screen.focus(1) end,
-    ['M-.'] = function () awful.screen.focus(2) end,
+    ['M-,'] = function () awful.screen.focus_bydirection("left") end,
+    ['M-.'] = function () awful.screen.focus_bydirection("right") end,
     ['M-u'] = awful.client.urgent.jumpto,
     ['M-h'] = function () awful.tag.incmwfact(-0.05) end,
     ['M-l'] = function () awful.tag.incmwfact(0.05) end,
@@ -106,8 +106,8 @@ controls.globalkeys = ezconfig.keytable.join({
     ['<XF86AudioMute>'] = function () awful.spawn("amixer set Master toggle >> /dev/null") end,
     ['M-C-l'] = function () awful.spawn.with_shell("i3lock -c 232729 && sleep 1 && xset dpms force off") end,
     ['M-`'] = function () utils:xrandr_map(controls.xrandr_choices) end,
-    ['M-4'] = function () utils:vpn_map(controls.vpn_service_commands) end,
-    ['M-2'] = function () utils:run_or_raise_map(controls.apps) end,
+    ['M-v'] = function () utils:vpn_map(controls.vpn_service_commands) end,
+    ['M-q'] = function () utils:run_or_raise_map(controls.apps) end,
     ['M-w'] = function () utils:webjumps_map(controls.webjumps, defs.browser) end,
     ['M-/'] = function () utils:websearches_map(controls.websearches, defs.browser, "selection") end,
     ['M-C-/'] = function () utils:websearches_map(controls.websearches, defs.browser, "prompt") end,
@@ -126,8 +126,28 @@ controls.globalkeys = ezconfig.keytable.join({
 for i = 1, 9 do
     controls.globalkeys = awful.util.table.join(controls.globalkeys,
         -- View tag only.
-        awful.key({ defs.modkey }, "F" .. i,
+        awful.key({ defs.modkey }, "#" .. i + 9,
             function ()
+                local screen = awful.screen.focused()
+                local tag = screen.tags[i]
+                if tag then
+                    tag:view_only()
+                end
+        end),
+        -- View tag on left screen.
+        awful.key({ defs.modkey, "Shift" }, "#" .. i + 9,
+            function ()
+                awful.screen.focus_bydirection("left")
+                local screen = awful.screen.focused()
+                local tag = screen.tags[i]
+                if tag then
+                    tag:view_only()
+                end
+        end),
+        -- View tag on right screen.
+        awful.key({ defs.modkey, "Mod1" }, "#" .. i + 9,
+            function ()
+                awful.screen.focus_bydirection("right")
                 local screen = awful.screen.focused()
                 local tag = screen.tags[i]
                 if tag then
@@ -154,7 +174,7 @@ for i = 1, 9 do
                 end
         end),
         -- Toggle tag.
-        awful.key({ defs.modkey, "Control", "Shift" }, "#" .. i + 9,
+        awful.key({ defs.modkey, "Control", "Shift" }, "F" .. i + 9,
             function ()
                 if client.focus then
                     local tag = client.focus.screen.tags[i]

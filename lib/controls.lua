@@ -40,7 +40,7 @@ controls.webjumps = {
     ["b"]='https://www.youtube.com/',
     ["и"]='https://www.youtube.com/',
     ["d"]='https://feedly.com/',
-    ["в"]='https://feedly.com/'
+    ["в"]='https://feedly.com/',
 }
 
 controls.websearches = {

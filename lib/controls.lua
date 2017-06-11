@@ -50,6 +50,8 @@ controls.websearches = {
     ["н"] = 'http://yandex.ru/yandsearch?text=%s',
     ["t"] = 'http://www.multitran.ru/c/M.exe?CL=1&l1=1&s=%s',
     ["е"] = 'http://www.multitran.ru/c/M.exe?CL=1&l1=1&s=%s',
+    ["z"] = 'http://gpo.zugaina.org/Search?search=%s',
+    ["я"] = 'http://gpo.zugaina.org/Search?search=%s',
 }
 
 controls.xrandr_choices = {

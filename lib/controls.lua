@@ -45,8 +45,11 @@ controls.webjumps = {
 
 controls.websearches = {
     ["g"] = 'http://www.google.com/search?num=100&q=%s',
+    ["п"] = 'http://www.google.com/search?num=100&q=%s',
     ["y"] = 'http://yandex.ru/yandsearch?text=%s',
-    ["t"] = 'http://www.multitran.ru/c/M.exe?CL=1&l1=1&s=%s'
+    ["н"] = 'http://yandex.ru/yandsearch?text=%s',
+    ["t"] = 'http://www.multitran.ru/c/M.exe?CL=1&l1=1&s=%s',
+    ["е"] = 'http://www.multitran.ru/c/M.exe?CL=1&l1=1&s=%s',
 }
 
 controls.xrandr_choices = {

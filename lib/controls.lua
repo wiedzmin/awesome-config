@@ -41,6 +41,8 @@ controls.webjumps = {
     ["и"]='https://www.youtube.com/',
     ["d"]='https://feedly.com/',
     ["в"]='https://feedly.com/',
+    ["p"]='https://getpocket.com/a/queue/',
+    ["з"]='https://getpocket.com/a/queue/',
 }
 
 controls.websearches = {

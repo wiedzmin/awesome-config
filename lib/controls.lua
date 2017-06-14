@@ -10,6 +10,7 @@ local defs = require('defs')
 local menus = require('menus')
 local utils = require('utils')
 
+-- TODO: add utility function for translating layouts as below, in background
 controls.apps = {
     ["f"]={'Firefox', 'firefox'},
     ["а"]={'Firefox', 'firefox'},
@@ -26,6 +27,7 @@ controls.apps = {
     ["2"]={'Fbreader', 'fbreader'}
 }
 
+-- TODO: add utility function for translating layouts as below, in background
 controls.webjumps = {
     ["m"]='https://mail.google.com/mail/u/0/#inbox',
     ["ь"]='https://mail.google.com/mail/u/0/#inbox',
@@ -45,6 +47,7 @@ controls.webjumps = {
     ["з"]='https://getpocket.com/a/queue/',
 }
 
+-- TODO: add utility function for translating layouts as below, in background
 controls.websearches = {
     ["g"] = 'http://www.google.com/search?num=100&q=%s',
     ["п"] = 'http://www.google.com/search?num=100&q=%s',

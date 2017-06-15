@@ -5,6 +5,47 @@ local screen = require("screen")
 
 local defs = require("defs")
 
+
+local qwerty_mapping = {
+   ['й'] = 'q',
+   ['ц'] = 'w',
+   ['у'] = 'e',
+   ['к'] = 'r',
+   ['е'] = 't',
+   ['н'] = 'y',
+   ['г'] = 'u',
+   ['ш'] = 'i',
+   ['щ'] = 'o',
+   ['з'] = 'p',
+   ['х'] = '[',
+   ['ъ'] = ']',
+   ['э'] = '\'',
+   ['ф'] = 'a',
+   ['ы'] = 's',
+   ['в'] = 'd',
+   ['а'] = 'f',
+   ['п'] = 'g',
+   ['р'] = 'h',
+   ['о'] = 'j',
+   ['л'] = 'k',
+   ['д'] = 'l',
+   ['ж'] = ';',
+   ['я'] = 'z',
+   ['ч'] = 'x',
+   ['с'] = 'c',
+   ['м'] = 'v',
+   ['и'] = 'b',
+   ['т'] = 'n',
+   ['ь'] = 'm',
+   ['б'] = ',',
+   ['ю'] = '.',
+   ['.'] = '/',
+}
+
+function translate_key(key)
+   return qwerty_mapping[key] or key
+end
+
 function simple_run_or_raise(klass, command)
    local matcher = function (c)
       return awful.rules.match(c, {class = klass})
@@ -17,6 +58,7 @@ function utils:run_or_raise_map(apps)
    local grabber = keygrabber.run(function(mod, key, event)
          if event == "release" then return end
          keygrabber.stop(grabber)
+         key = translate_key(key)
          if apps[key] then
             simple_run_or_raise(apps[key][1], apps[key][2])
          end
@@ -27,6 +69,7 @@ function utils:webjumps_map(webjumps, browser)
    local grabber = keygrabber.run(function(mod, key, event)
            if event == "release" then return end
            keygrabber.stop(grabber)
+           key = translate_key(key)
            if key == 'o' then
                awful.util.spawn(browser.command .. " " .. browser.params .. " " .. selection())
            else
@@ -60,6 +103,7 @@ function utils:websearches_map(searches, browser, type)
    local grabber = keygrabber.run(function(mod, key, event)
          if event == "release" then return end
          keygrabber.stop(grabber)
+         key = translate_key(key)
          if searches[key] then
             if type == "selection" then
                search_data = selection()
@@ -77,6 +121,7 @@ function utils:xrandr_map(choices)
    local grabber = keygrabber.run(function(mod, key, event)
            if event == "release" then return end
            keygrabber.stop(grabber)
+           key = translate_key(key)
            choice = choices[key]
            if choice then
               if type(choice) == "function" then
@@ -93,6 +138,7 @@ function utils:vpn_map(commands)
    local grabber = keygrabber.run(function(mod, key, event)
            if event == "release" then return end
            keygrabber.stop(grabber)
+           key = translate_key(key)
            if commands[key] then
               awful.spawn.with_shell(commands[key])
            end

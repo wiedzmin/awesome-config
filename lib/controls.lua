@@ -13,50 +13,32 @@ local utils = require('utils')
 -- TODO: add utility function for translating layouts as below, in background
 controls.apps = {
     ["f"]={'Firefox', 'firefox'},
-    ["а"]={'Firefox', 'firefox'},
     ["e"]={'Emacs', 'emacs'},
-    ["у"]={'Emacs', 'emacs'},
     ["t"]={'URxvt', 'urxvt'},
-    ["е"]={'URxvt', 'urxvt'},
     ["z"]={'Zathura', 'zathura'},
-    ["я"]={'Zathura', 'zathura'},
     ["l"]={'Vlc', 'vlc'},
-    ["д"]={'Vlc', 'vlc'},
     ["g"]={'Telegram', 'Telegram'},
-    ["п"]={'Telegram', 'Telegram'},
     ["2"]={'Fbreader', 'fbreader'}
 }
 
 -- TODO: add utility function for translating layouts as below, in background
 controls.webjumps = {
     ["m"]='https://mail.google.com/mail/u/0/#inbox',
-    ["ь"]='https://mail.google.com/mail/u/0/#inbox',
     ["g"]='https://github.com/wiedzmin',
-    ["п"]='https://github.com/wiedzmin',
     ["y"]='http://yandex.ru',
-    ["н"]='http://yandex.ru',
     ["f"]='https://facebook.com/',
-    ["а"]='https://facebook.com/',
     ["t"]='http://www.multitran.ru/',
-    ["е"]='http://www.multitran.ru/',
     ["b"]='https://www.youtube.com/',
-    ["и"]='https://www.youtube.com/',
     ["d"]='https://feedly.com/',
-    ["в"]='https://feedly.com/',
     ["p"]='https://getpocket.com/a/queue/',
-    ["з"]='https://getpocket.com/a/queue/',
 }
 
 -- TODO: add utility function for translating layouts as below, in background
 controls.websearches = {
     ["g"] = 'http://www.google.com/search?num=100&q=%s',
-    ["п"] = 'http://www.google.com/search?num=100&q=%s',
     ["y"] = 'http://yandex.ru/yandsearch?text=%s',
-    ["н"] = 'http://yandex.ru/yandsearch?text=%s',
     ["t"] = 'http://www.multitran.ru/c/M.exe?CL=1&l1=1&s=%s',
-    ["е"] = 'http://www.multitran.ru/c/M.exe?CL=1&l1=1&s=%s',
     ["z"] = 'http://gpo.zugaina.org/Search?search=%s',
-    ["я"] = 'http://gpo.zugaina.org/Search?search=%s',
 }
 
 controls.xrandr_choices = {

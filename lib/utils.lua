@@ -177,4 +177,14 @@ function utils.update_emacs_frames()
    utils:with_emacs_noninteractive("(custom/update-frames " .. screen:count() .. ")")
 end
 
+function utils:get_filelist(path)
+    local i, t, popen = 0, {}, io.popen
+    local pfile = popen('find ' .. path .. ' -type f | sort | uniq')
+    for filename in pfile:lines() do
+        t[#t+1] = filename
+    end
+    pfile:close()
+    return t
+end
+
 return utils

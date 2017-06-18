@@ -8,6 +8,7 @@ local ezconfig = require("ezconfig")
 
 local defs = require('defs')
 local menus = require('menus')
+local bookshelf = require('bookshelf')
 local utils = require('utils')
 
 -- TODO: add utility function for translating layouts as below, in background
@@ -104,6 +105,7 @@ controls.globalkeys = ezconfig.keytable.join({
     ['M-/'] = function () utils:websearches_map(controls.websearches, defs.browser, "selection") end,
     ['M-C-/'] = function () utils:websearches_map(controls.websearches, defs.browser, "prompt") end,
     ['C-\\'] = utils.toggle_keyboard_layout,
+    ['M-b'] = function() bookshelf:show_books_menu() end,
     ['M-e'] = function () hints.focus() end,
     ['M-S-p'] = function () awful.spawn("gmrun") end,
     ['M-S-/'] = function() cheeky.util.switcher() end,

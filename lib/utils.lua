@@ -60,7 +60,7 @@ function utils:run_or_raise_map(apps)
          keygrabber.stop(grabber)
          key = translate_key(key)
          if apps[key] then
-            simple_run_or_raise(apps[key][1], apps[key][2])
+             simple_run_or_raise(apps[key][1], apps[key][2])
          end
    end)
 end

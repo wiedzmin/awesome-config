@@ -70,14 +70,16 @@ function utils:webjumps_map(webjumps, browser)
            if event == "release" then return end
            keygrabber.stop(grabber)
            key = translate_key(key)
+           local term
            if key == 'o' then
-               awful.util.spawn(browser.command .. " " .. browser.params .. " " .. selection())
-           else
-               if webjumps[key] then
-                   awful.util.spawn(browser.command .. " " .. browser.params .. " " .. webjumps[key])
-               end
+               term = selection()
+           elseif webjumps[key] then
+               term = webjumps[key]
            end
-           simple_run_or_raise(browser.class, browser.command)
+           if term then
+               awful.util.spawn(browser.command .. " " .. browser.params .. " " .. term)
+               simple_run_or_raise(browser.class, browser.command)
+           end
    end)
 end
 

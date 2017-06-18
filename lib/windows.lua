@@ -154,4 +154,6 @@ awful.screen.connect_for_each_screen(function(s)
     s.mywibox:set_widget(layout)
 end)
 
+beautiful.master_count = 2
+
 return windows

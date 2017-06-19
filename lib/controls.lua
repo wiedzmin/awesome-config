@@ -14,6 +14,7 @@ local utils = require('utils')
 -- TODO: add utility function for translating layouts as below, in background
 controls.apps = {
     ["f"]={'Firefox', 'firefox'},
+    ["c"]={'Google-chrome', 'google-chrome-stable'},
     ["e"]={'Emacs', 'emacs'},
     ["t"]={'URxvt', 'urxvt'},
     ["z"]={'Zathura', 'zathura'},

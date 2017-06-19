@@ -59,6 +59,8 @@ awful.rules.rules = {
          client.focus.move_to_screen(client.focus.screen)
          client.focus.move_to_tag(t)
     end },
+    { rule = { class = "Google-chrome" },
+      properties = { tag = "∀" } },
     { rule = { class = "Emacs" },
       properties = { tag = "λ" } },
     { rule = { class = "URxvt" },

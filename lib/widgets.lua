@@ -13,15 +13,6 @@ cpuwidget:set_color({ type = "linear", from = { 0, 0 }, to = { 10,0 }, stops = {
                     {1, "#AECF96" }}})
 vicious.register(cpuwidget, vicious.widgets.cpu, "$1")
 
-memwidget = awful.widget.progressbar()
-memwidget:set_width(8)
-memwidget:set_height(10)
-memwidget:set_vertical(true)
-memwidget:set_background_color("#494B4F")
-memwidget:set_border_color(nil)
-memwidget:set_color("#AECF96")
-vicious.register(memwidget, vicious.widgets.mem, "$1", 13)
-
 kbdwidget = wibox.widget.textbox(" Eng ")
 kbdwidget.border_width = 1
 kbdwidget.border_color = beautiful.fg_normal

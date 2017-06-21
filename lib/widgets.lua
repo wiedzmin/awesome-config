@@ -3,8 +3,10 @@ local wibox = require("wibox")
 local vicious = require("vicious")
 local beautiful = require("beautiful")
 local obvious = require("obvious")
+local lain = require("lain")
 
 mytextclock = wibox.widget.textclock()
+lain.widgets.calendar:attach(mytextclock, { font_size = 10, followmouse = true })
 
 cpuwidget = awful.widget.graph()
 cpuwidget:set_width(50)

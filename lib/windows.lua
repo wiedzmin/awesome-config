@@ -59,6 +59,8 @@ awful.rules.rules = {
       properties = { tag = "λ" } },
     { rule = { class = "URxvt" },
       properties = { tag = "λ" } },
+    { rule = { class = "Sakura" },
+      properties = { tag = "λ" } },
     { rule = { class = "FBReader" },
       properties = { tag = "⧉" } },
     { rule = { class = "Zathura" },

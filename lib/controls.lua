@@ -17,6 +17,7 @@ controls.apps = {
     ["c"]={'Google-chrome', 'google-chrome-stable'},
     ["e"]={'Emacs', 'emacs'},
     ["t"]={'URxvt', 'urxvt'},
+    ["t"]={'Sakura', 'sakura'},
     ["z"]={'Zathura', 'zathura'},
     ["l"]={'Vlc', 'vlc'},
     ["g"]={'Telegram', 'Telegram'},

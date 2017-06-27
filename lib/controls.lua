@@ -33,6 +33,8 @@ controls.webjumps = {
     ["b"]='https://www.youtube.com/',
     ["d"]='https://feedly.com/',
     ["p"]='https://getpocket.com/a/queue/',
+    ["i"]='https://todoist.com/app',
+    ["r"]='http://relax-fm.ru',
 }
 
 -- TODO: add utility function for translating layouts as below, in background

@@ -93,30 +93,30 @@ local function _search_prompt(search_url, browser, search_data)
       prompt       = "Search for: ", -- TODO: make titled searches
       textbox      = awful.screen.focused().mypromptbox.widget,
       exe_callback = function(data)
-         if data then
-            _search(search_url, browser, data)
-         end
+          if data then
+              _search(search_url, browser, data)
+          end
       end,
       history_path = awful.util.get_cache_dir() .. "/history_searches"
    }
 end
 
 function utils:websearches_map(searches, browser, type)
-   local grabber = keygrabber.run(function(mod, key, event)
-         if event == "release" then return end
-         keygrabber.stop(grabber)
-         key = translate_key(key)
-         if searches[key] then
-            if type == "selection" then
-               search_data = selection()
-               if search_data then
-                  _search(searches[key], browser, search_data)
-               end
-            else
-               _search_prompt(searches[key], browser, search_data)
+    local grabber = keygrabber.run(function(mod, key, event)
+            if event == "release" then return end
+            keygrabber.stop(grabber)
+            key = translate_key(key)
+            if searches[key] then
+                if type == "selection" then
+                    search_data = selection()
+                    if search_data then
+                        _search(searches[key], browser, search_data)
+                    end
+                else
+                    _search_prompt(searches[key], browser, search_data)
+                end
             end
-         end
-   end)
+    end)
 end
 
 function utils:xrandr_map(choices)

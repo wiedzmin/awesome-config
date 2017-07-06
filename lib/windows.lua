@@ -95,6 +95,8 @@ end)
 client.connect_signal("focus", function(c) c.border_color = "#4286f4" end)
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 
+client.connect_signal("unfocus", function(c) c.fullscreen = false end )
+
 awful.screen.connect_for_each_screen(function(s)
     themes:set_wallpaper(s)
     awful.tag({ "ω", "λ", "⧉", "∀" }, s, windows.layouts[2])

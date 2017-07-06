@@ -113,6 +113,7 @@ function utils:websearches_map(searches, browser, type)
                         _search(searches[key], browser, search_data)
                     end
                 else
+                    client.focus.fullscreen = false
                     _search_prompt(searches[key], browser, search_data)
                 end
             end

@@ -71,14 +71,24 @@ function utils:webjumps_map(webjumps, browser)
            keygrabber.stop(grabber)
            key = translate_key(key)
            local term
+           local browser_class = browser.class
+           local browser_command = browser.command
+           local browser_params = browser.params
            if key == 'o' then
                term = selection()
            elseif webjumps[key] then
-               term = webjumps[key]
+               def = webjumps[key]
+               if type(def) == "table" then
+                   term = def[1]
+                   browser_class = def[2][1]
+                   browser_command = def[2][2]
+               else
+                   term = webjumps[key]
+               end
            end
            if term then
-               awful.util.spawn(browser.command .. " " .. browser.params .. " " .. term)
-               simple_run_or_raise(browser.class, browser.command)
+               awful.util.spawn(browser_command .. " " .. browser_params .. " " .. term)
+               simple_run_or_raise(browser_class, browser_command)
            end
    end)
 end

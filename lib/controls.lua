@@ -44,6 +44,8 @@ controls.websearches = {
     ["y"] = 'http://yandex.ru/yandsearch?text=%s',
     ["t"] = 'http://www.multitran.ru/c/M.exe?CL=1&l1=1&s=%s',
     ["z"] = 'http://gpo.zugaina.org/Search?search=%s',
+    ["c"] = 'https://searchcode.com/?q=%s',
+    ["l"] = 'https://luarocks.org/search?q=%s',
 }
 
 controls.xrandr_choices = {

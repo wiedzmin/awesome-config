@@ -20,7 +20,7 @@ defs.terminal = "urxvt"
 defs.editor = os.getenv("EDITOR") or "vim"
 defs.editor_cmd = defs.terminal .. " -e " .. defs.editor
 defs.browser = {
-   command = "firefox",
+   command = "firefox-bin",
    class = "Firefox",
    params = "-new-tab"
 }

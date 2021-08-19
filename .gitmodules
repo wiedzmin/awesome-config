@@ -10,9 +10,6 @@
 [submodule "lib/eminent"]
 	path = lib/eminent
 	url = https://github.com/guotsuan/eminent.git
-[submodule "lib/cheeky"]
-	path = lib/cheeky
-	url = https://github.com/svexican/cheeky
 [submodule "lib/obvious"]
 	path = lib/obvious
 	url = https://github.com/hoelzro/obvious

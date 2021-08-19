@@ -2,7 +2,6 @@ local controls = {}
 
 local awful = require("awful")
 local hints = require("hints")
-local cheeky = require("cheeky")
 local menubar = require("menubar")
 local ezconfig = require("ezconfig")
 
@@ -116,7 +115,7 @@ controls.globalkeys = ezconfig.keytable.join({
     ['M-b'] = function() bookshelf:show_books_menu() end,
     ['M-e'] = function () hints.focus() end,
     ['M-S-p'] = function () awful.spawn("gmrun") end,
-    ['M-S-/'] = function() cheeky.util.switcher() end,
+    -- ['M-S-/'] = function() cheeky.util.switcher() end,
     ['<Print>'] = function () awful.spawn("scrot -e 'mv $f ~/screenshots/ 2>/dev/null'") end,
     ['M-C-r'] = awesome.restart,
     ['M-S-q'] = function() awesome.quit() end,
